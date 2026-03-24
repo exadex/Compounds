@@ -1,51 +1,51 @@
-const compartments = ['Metabolism', 'Stem cell', 'ECM', 'Mitochondria', 'Inflam-aging', 'Neuro-aging'];
+const compartments = ['Metabolism', 'Stem cell', 'ECM', 'Mitochondria', 'inflam-aging', 'Neuro-aging'];
 
 const compounds = {
     Cafeine: {
         label: 'Caffeine',
         datas: {
-            radar: { Metabolism:1.555153608, 'Stem cell':0.804801211, ECM:1.408648042, Mitochondria:0.942647289, 'Inflam-aging':1.476356749, 'Neuro-aging':1.098239504 },
-            heat: { Metabolism:0.637075088, 'Stem cell':-0.313295619, ECM:0.494311192, Mitochondria:-0.085210037, 'Inflam-aging':0.562041378, 'Neuro-aging':0.135192712 },
+            radar: { Metabolism:1.555153608, 'Stem cell':0.804801211, ECM:1.408648042, Mitochondria:0.942647289, 'inflam-aging':1.476356749, 'Neuro-aging':1.098239504 },
+            heat: { Metabolism:0.637075088, 'Stem cell':-0.313295619, ECM:0.494311192, Mitochondria:-0.085210037, 'inflam-aging':0.562041378, 'Neuro-aging':0.135192712 },
             antiAging: 0.359252188, ageGain: 4.9
         }
     },
     'Anti-oxy': {
         label: 'Anti-oxy',
         datas: {
-            radar: { Metabolism:1.02241417, 'Stem cell':1.1224292, ECM:0.6112996, Mitochondria:1.15959402, 'Inflam-aging':1.01252605, 'Neuro-aging':1.49833398 },
-            heat: { Metabolism:0.03197974, 'Stem cell':0.16662445, ECM:-0.71044889, Mitochondria:0.2136198, 'Inflam-aging':0.01795902, 'Neuro-aging':0.58335924 },
+            radar: { Metabolism:1.02241417, 'Stem cell':1.1224292, ECM:0.6112996, Mitochondria:1.15959402, 'inflam-aging':1.01252605, 'Neuro-aging':1.49833398 },
+            heat: { Metabolism:0.03197974, 'Stem cell':0.16662445, ECM:-0.71044889, Mitochondria:0.2136198, 'inflam-aging':0.01795902, 'Neuro-aging':0.58335924 },
             antiAging: -0.13180946, ageGain: -2.0
         }
     },
-    'Anti-infla 1': {
-        label: 'Anti-infla 1',
+    'Anti-inflammatory 1': {
+        label: 'Anti-inflammatory 1',
         datas: {
-            radar: { Metabolism:1.97061158, 'Stem cell':0.2985296, ECM:2.5960618, Mitochondria:1.00888437, 'Inflam-aging':1.97444806, 'Neuro-aging':1.3297509 },
-            heat: { Metabolism:0.97861158, 'Stem cell':-1.74450409, ECM:1.37632473, Mitochondria:0.01276083, 'Inflam-aging':0.98144941, 'Neuro-aging':0.41115602 },
+            radar: { Metabolism:1.97061158, 'Stem cell':0.2985296, ECM:2.5960618, Mitochondria:1.00888437, 'inflam-aging':1.97444806, 'Neuro-aging':1.3297509 },
+            heat: { Metabolism:0.97861158, 'Stem cell':-1.74450409, ECM:1.37632473, Mitochondria:0.01276083, 'inflam-aging':0.98144941, 'Neuro-aging':0.41115602 },
             antiAging: 0.64012325, ageGain: 7.4
         }
     },
-    'Anti-infla 2': {
-        label: 'Anti-infla 2',
+    'Anti-inflammatory 2': {
+        label: 'Anti-inflammatory 2',
         datas: {
-            radar: { Metabolism:1.60965769, 'Stem cell':0.58183722, ECM:0.92050647, Mitochondria:0.88604018, 'Inflam-aging':1.34671877, 'Neuro-aging':0.6572614 },
-            heat: { Metabolism:0.68675392, 'Stem cell':-0.78134409, ECM:-0.12020568, Mitochondria:-0.1745597, 'Inflam-aging':0.42944386, 'Neuro-aging':-0.60663621 },
+            radar: { Metabolism:1.60965769, 'Stem cell':0.58183722, ECM:0.92050647, Mitochondria:0.88604018, 'inflam-aging':1.34671877, 'Neuro-aging':0.6572614 },
+            heat: { Metabolism:0.68675392, 'Stem cell':-0.78134409, ECM:-0.12020568, Mitochondria:-0.1745597, 'inflam-aging':0.42944386, 'Neuro-aging':-0.60663621 },
             antiAging: 0.11566192, ageGain: 1.7
         }
     },
-    'GLP1-ag': {
-        label: 'GLP1-ag',
+    'GLP1-agonist': {
+        label: 'GLP1-agonist',
         datas: {
-            radar: { Metabolism:1.91303566, 'Stem cell':1.24773326, ECM:0.66041222, Mitochondria:1.65380092, 'Inflam-aging':1.23684124, 'Neuro-aging':1.53247882 },
-            heat: { Metabolism:0.93586377, 'Stem cell':0.31930955, ECM:-0.59856128, Mitochondria:0.72578557, 'Inflam-aging':0.30666033, 'Neuro-aging':0.61586714 },
+            radar: { Metabolism:1.91303566, 'Stem cell':1.24773326, ECM:0.66041222, Mitochondria:1.65380092, 'inflam-aging':1.23684124, 'Neuro-aging':1.53247882 },
+            heat: { Metabolism:0.93586377, 'Stem cell':0.31930955, ECM:-0.59856128, Mitochondria:0.72578557, 'inflam-aging':0.30666033, 'Neuro-aging':0.61586714 },
             antiAging: 0.26190119, ageGain: 3.7
         }
     },
-    Botox: {
-        label: 'Botox',
+    'Botox Injected: {
+        label: ''Botox Injected',
         datas: {
-            radar: { Metabolism:0.67425533, 'Stem cell':0.69851636, ECM:1.02337683, Mitochondria:0.6969957, 'Inflam-aging':0.852734, 'Neuro-aging':0.36499353 },
-            heat: { Metabolism:-0.56863308, 'Stem cell':-0.51763418, ECM:0.03750547, Mitochondria:-0.52077834, 'Inflam-aging':-0.22985093, 'Neuro-aging':-1.45427068 },
+            radar: { Metabolism:0.67425533, 'Stem cell':0.69851636, ECM:1.02337683, Mitochondria:0.6969957, 'inflam-aging':0.852734, 'Neuro-aging':0.36499353 },
+            heat: { Metabolism:-0.56863308, 'Stem cell':-0.51763418, ECM:0.03750547, Mitochondria:-0.52077834, 'inflam-aging':-0.22985093, 'Neuro-aging':-1.45427068 },
             antiAging: -0.44653357, ageGain: -5.8
         }
     }

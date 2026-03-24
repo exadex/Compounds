@@ -11,6 +11,45 @@ body {
     padding: 40px 20px;
 }
 
+/* Logo pequeño arriba a la izquierda */
+.small-logo {
+    position: absolute;       /* para poder moverlo libremente */
+    top: 20px;                /* distancia desde arriba */
+    left: 20px;              /* distancia desde la izquierda, poner right si lo quieres en el lado derecho */
+    height: 60px;             /* tamaño */
+    width: auto;              /* mantiene proporción */
+    z-index: 10;              /* asegurarse que esté por encima */
+}
+
+/* Contacto */
+.main-header {
+    display: flex;
+    justify-content: space-between; /* logo a la izquierda, botón a la derecha */
+    align-items: center;
+    padding: 20px;
+    position: relative; /* para que elementos absolutos dentro funcionen si los necesitas */
+}
+
+.contact-btn {
+    position: absolute;   /* clave */
+    top: 20px;            /* distancia desde arriba */
+    right: 20px;          /* distancia desde la derecha */
+    
+    
+    padding: 8px 16px;
+    background-color: #BD7A31;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+    background-color: #3a876e;
+    transform: translateY(-2px);
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
