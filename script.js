@@ -1,0 +1,653 @@
+const compartments = ['Metabolism', 'Stem cell', 'ECM', 'Mitochondria', 'Inflam-aging', 'Neuro-aging'];
+
+const compounds = {
+    Cafeine: {
+        label: 'Caffeine',
+        datas: {
+            radar: { Metabolism:1.555153608, 'Stem cell':0.804801211, ECM:1.408648042, Mitochondria:0.942647289, 'Inflam-aging':1.476356749, 'Neuro-aging':1.098239504 },
+            heat: { Metabolism:0.637075088, 'Stem cell':-0.313295619, ECM:0.494311192, Mitochondria:-0.085210037, 'Inflam-aging':0.562041378, 'Neuro-aging':0.135192712 },
+            antiAging: 0.359252188, ageGain: 4.9
+        }
+    },
+    'Anti-oxy': {
+        label: 'Anti-oxy',
+        datas: {
+            radar: { Metabolism:1.02241417, 'Stem cell':1.1224292, ECM:0.6112996, Mitochondria:1.15959402, 'Inflam-aging':1.01252605, 'Neuro-aging':1.49833398 },
+            heat: { Metabolism:0.03197974, 'Stem cell':0.16662445, ECM:-0.71044889, Mitochondria:0.2136198, 'Inflam-aging':0.01795902, 'Neuro-aging':0.58335924 },
+            antiAging: -0.13180946, ageGain: -2.0
+        }
+    },
+    'Anti-infla 1': {
+        label: 'Anti-infla 1',
+        datas: {
+            radar: { Metabolism:1.97061158, 'Stem cell':0.2985296, ECM:2.5960618, Mitochondria:1.00888437, 'Inflam-aging':1.97444806, 'Neuro-aging':1.3297509 },
+            heat: { Metabolism:0.97861158, 'Stem cell':-1.74450409, ECM:1.37632473, Mitochondria:0.01276083, 'Inflam-aging':0.98144941, 'Neuro-aging':0.41115602 },
+            antiAging: 0.64012325, ageGain: 7.4
+        }
+    },
+    'Anti-infla 2': {
+        label: 'Anti-infla 2',
+        datas: {
+            radar: { Metabolism:1.60965769, 'Stem cell':0.58183722, ECM:0.92050647, Mitochondria:0.88604018, 'Inflam-aging':1.34671877, 'Neuro-aging':0.6572614 },
+            heat: { Metabolism:0.68675392, 'Stem cell':-0.78134409, ECM:-0.12020568, Mitochondria:-0.1745597, 'Inflam-aging':0.42944386, 'Neuro-aging':-0.60663621 },
+            antiAging: 0.11566192, ageGain: 1.7
+        }
+    },
+    'GLP1-ag': {
+        label: 'GLP1-ag',
+        datas: {
+            radar: { Metabolism:1.91303566, 'Stem cell':1.24773326, ECM:0.66041222, Mitochondria:1.65380092, 'Inflam-aging':1.23684124, 'Neuro-aging':1.53247882 },
+            heat: { Metabolism:0.93586377, 'Stem cell':0.31930955, ECM:-0.59856128, Mitochondria:0.72578557, 'Inflam-aging':0.30666033, 'Neuro-aging':0.61586714 },
+            antiAging: 0.26190119, ageGain: 3.7
+        }
+    },
+    Botox: {
+        label: 'Botox',
+        datas: {
+            radar: { Metabolism:0.67425533, 'Stem cell':0.69851636, ECM:1.02337683, Mitochondria:0.6969957, 'Inflam-aging':0.852734, 'Neuro-aging':0.36499353 },
+            heat: { Metabolism:-0.56863308, 'Stem cell':-0.51763418, ECM:0.03750547, Mitochondria:-0.52077834, 'Inflam-aging':-0.22985093, 'Neuro-aging':-1.45427068 },
+            antiAging: -0.44653357, ageGain: -5.8
+        }
+    }
+};
+
+const combinationTemplates = {
+    'Cafeine + Anti-oxy': {
+        label: 'Cafeine + Anti-oxy',
+        datas: {
+            radar: {Metabolism:1.37129017,'Stem cell':1.015822567,ECM:1.096482788,Mitochondria:1.089730095,'Inflam-aging':1.318426067,'Neuro-aging':1.365007883},
+            heat: {Metabolism:0.455533883,'Stem cell':0.02264843,ECM:0.132883166,Mitochondria:0.123970852,'Inflam-aging':0.398816671,'Neuro-aging':0.448909283},
+            antiAging:0.294142315, ageGain:4.1
+        }
+    },
+    'Cafeine + Anti-infla 1': {
+        label: 'Cafeine + Anti-infla 1',
+        datas: {
+            radar: {Metabolism:1.835492904,'Stem cell':0.597693119,ECM:2.161032345,Mitochondria:0.988538849,'Inflam-aging':1.809545022,'Neuro-aging':1.255591377},
+            heat: {Metabolism:0.876167537,'Stem cell':-0.742523162,ECM:1.111720666,Mitochondria:-0.01663043,'Inflam-aging':0.855627003,'Neuro-aging':0.328367027},
+            antiAging:0.646010876, ageGain:7.5
+        }
+    },
+    'Cafeine + Anti-infla 2': {
+        label: 'Cafeine + Anti-infla 2',
+        datas: {
+            radar: {Metabolism:1.593108881,'Stem cell':0.730167478,ECM:1.239670003,Mitochondria:0.925295566,'Inflam-aging':1.436206847,'Neuro-aging':0.941246197},
+            heat: {Metabolism:0.671844871,'Stem cell':-0.453700682,ECM:0.30995613,Mitochondria:-0.112013817,'Inflam-aging':0.522263546,'Neuro-aging':-0.087355963},
+            antiAging:0.282202719, ageGain:4.0
+        }
+    },
+    'Cafeine + GLP1-ag': {
+        label: 'Cafeine + GLP1-ag',
+        datas: {
+            radar: {Metabolism:1.79778658,'Stem cell':1.093935746,ECM:1.12229306,Mitochondria:1.397149972,'Inflam-aging':1.400000231,'Neuro-aging':1.38670875},
+            heat: {Metabolism:0.846221765,'Stem cell':0.129528001,ECM:0.16644945,Mitochondria:0.48248689,'Inflam-aging':0.485427065,'Neuro-aging':0.47166481},
+            antiAging:0.478858626, ageGain:6.2
+        }
+    },
+    'Cafeine + Botox': {
+        label: 'Cafeine + Botox',
+        datas: {
+            radar: {Metabolism:1.210287703,'Stem cell':0.771320742,ECM:1.280999112,Mitochondria:0.861020488,'Inflam-aging':1.252207534,'Neuro-aging':0.789140285},
+            heat: {Metabolism:0.275350038,'Stem cell':-0.374597187,ECM:0.357269476,Mitochondria:-0.215880527,'Inflam-aging':0.324473686,'Neuro-aging':-0.341646306},
+            antiAging:0.12717105, ageGain:1.9
+        }
+    },
+
+    'Anti-oxy + Anti-infla 1': {
+        label: 'Anti-oxy + Anti-infla 1',
+        datas: {
+            radar: {Metabolism:1.618485378,'Stem cell':0.754410095,ECM:1.682134005,Mitochondria:1.112158271,'Inflam-aging':1.615972107,'Neuro-aging':1.445629924},
+            heat: {Metabolism:0.694644332,'Stem cell':-0.406579113,ECM:0.75029264,Mitochondria:0.153362112,'Inflam-aging':0.692402296,'Neuro-aging':0.531698275},
+            antiAging:0.550191947, ageGain:6.8
+        }
+    },
+    'Anti-oxy + Anti-infla 2': {
+        label: 'Anti-oxy + Anti-infla 2',
+        datas: {
+            radar: {Metabolism:1.404758049,'Stem cell':0.92161964,ECM:0.813785995,Mitochondria:1.069670955,'Inflam-aging':1.236276743,'Neuro-aging':1.169880044},
+            heat: {Metabolism:0.490321667,'Stem cell':-0.117756634,ECM:-0.297278643,Mitochondria:0.097167072,'Inflam-aging':0.30600173,'Neuro-aging':0.226360607},
+            antiAging:0.125264588, ageGain:1.9
+        }
+    },
+    'Anti-oxy + GLP1-ag': {
+        label: 'Anti-oxy + GLP1-ag',
+        datas: {
+            radar: {Metabolism:1.585237016,'Stem cell':1.208740057,ECM:0.645224192,Mitochondria:1.486722966,'Inflam-aging':1.164773906,'Neuro-aging':1.522154466},
+            heat: {Metabolism:0.66469856,'Stem cell':0.273504022,ECM:-0.632127564,Mitochondria:0.572135843,'Inflam-aging':0.220049941,'Neuro-aging':0.606114769},
+            antiAging:0.204399469, ageGain:3.0
+        }
+    },
+    'Anti-oxy + Botox': {
+        label: 'Anti-oxy + Botox',
+        datas: {
+            radar: {Metabolism:0.902373054,'Stem cell':0.973563416,ECM:0.878503027,Mitochondria:0.99536693,'Inflam-aging':0.961671479,'Neuro-aging':0.980826773},
+            heat: {Metabolism:-0.148204107,'Stem cell':-0.038653138,ECM:-0.186880838,Mitochondria:-0.006699638,'Inflam-aging':-0.056383963,'Neuro-aging':-0.027929735},
+            antiAging:-0.104612476, ageGain:-1.6
+        }
+    },
+
+    'Anti-infla 1 + Anti-infla 2': {
+        label: 'Anti-infla 1 + Anti-infla 2',
+        datas: {
+            radar: {Metabolism:1.854559542,'Stem cell':0.476274437,ECM:1.901800091,Mitochondria:0.970342381,'Inflam-aging':1.76033398,'Neuro-aging':1.076104625},
+            heat: {Metabolism:0.891076587,'Stem cell':-1.070134977,ECM:0.927365605,Mitochondria:-0.04343421,'Inflam-aging':0.815849171,'Neuro-aging':0.105818351},
+            antiAging:0.531876352, ageGain:6.6
+        }
+    },
+    'Anti-infla 1 + GLP1-ag': {
+        label: 'Anti-infla 1 + GLP1-ag',
+        datas: {
+            radar: {Metabolism:1.953159193,'Stem cell':0.812421575,ECM:1.721730007,Mitochondria:1.425905281,'Inflam-aging':1.715956154,'Neuro-aging':1.468612518},
+            heat: {Metabolism:0.965809542,'Stem cell':-0.299699542,ECM:0.783858924,Mitochondria:0.51187815,'Inflam-aging':0.77901269,'Neuro-aging':0.554453802},
+            antiAging:0.707418044, ageGain:7.9
+        }
+    },
+    'Anti-infla 1 + Botox': {
+        label: 'Anti-infla 1 + Botox',
+        datas: {
+            radar: {Metabolism:1.42845985,'Stem cell':0.541277321,ECM:1.965203822,Mitochondria:0.902938154,'Inflam-aging':1.534809193,'Neuro-aging':0.902205514},
+            heat: {Metabolism:0.514460487,'Stem cell':-0.885560154,ECM:0.97467895,Mitochondria:-0.14730092,'Inflam-aging':0.618059311,'Neuro-aging':-0.148471991},
+            antiAging:0.391963924, ageGain:5.3
+        }
+    },
+
+    'Anti-infla 2 + GLP1-ag': {
+        label: 'Anti-infla 2 + GLP1-ag',
+        datas: {
+            radar: {Metabolism:1.816461534,'Stem cell':0.992488945,ECM:0.832941824,Mitochondria:1.371432019,'Inflam-aging':1.312768133,'Neuro-aging':1.188478772},
+            heat: {Metabolism:0.861130815,'Stem cell':-0.010877062,ECM:-0.263712359,Mitochondria:0.455683111,'Inflam-aging':0.392612123,'Neuro-aging':0.249116135},
+            antiAging:0.305408792, ageGain:4.3
+        }
+    },
+    'Anti-infla 2 + Botox': {
+        label: 'Anti-infla 2 + Botox',
+        datas: {
+            radar: {Metabolism:1.239826135,'Stem cell':0.661247526,ECM:0.993224756,Mitochondria:0.824491954,'Inflam-aging':1.174184197,'Neuro-aging':0.550598831},
+            heat: {Metabolism:0.310137821,'Stem cell':-0.596737675,ECM:-0.009807873,Mitochondria:-0.27842268,'Inflam-aging':0.231658745,'Neuro-aging':-0.860926549},
+            antiAging:-0.067881327, ageGain:-1.0
+        }
+    }
+};
+
+let selectedCompounds = [];
+let activeSelection = 'combo'; // 'a', 'combo', 'b'
+
+function buildButtons() {
+    const list = document.getElementById('compounds-list');
+    list.innerHTML = '';
+    Object.keys(compounds).forEach(key => {
+        const btn = document.createElement('button');
+        btn.textContent = compounds[key].label;
+        btn.className = 'compound-btn';
+        btn.onclick = () => handleCompoundSelection(key, btn);
+        list.appendChild(btn);
+    });
+}
+
+function handleCompoundSelection(key, button) {
+    const idx = selectedCompounds.indexOf(key);
+
+    if (idx !== -1) {
+        selectedCompounds.splice(idx, 1);
+    } else {
+        if (selectedCompounds.length === 2) {
+            selectedCompounds = [key];
+        } else {
+            selectedCompounds.push(key);
+        }
+    }
+
+    updateActiveButtons();
+    renderSelected();
+}
+
+function updateActiveButtons() {
+    document.querySelectorAll('.compound-btn').forEach(btn => {
+        const key = Object.keys(compounds).find(k => compounds[k].label === btn.textContent);
+        if (key && selectedCompounds.includes(key)) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+}
+
+function renderSelected() {
+    if (selectedCompounds.length === 0) {
+        document.getElementById('select-hint').style.display = 'block';
+        document.getElementById('panels').style.display = 'none';
+        return;
+    }
+
+    // Ocultar hint y video al hacer click
+    document.getElementById('select-hint').style.display = 'none';
+    
+    const videoDiv = document.querySelector('.intro-video');
+    const videoEl = videoDiv ? videoDiv.querySelector('video') : null;
+    if (videoEl) {
+        videoEl.pause();              // Detiene el video
+        videoEl.currentTime = 0;      // Opcional: reinicia al principio
+        videoDiv.style.display = 'none'; // Oculta el contenedor del video
+    }
+
+    // Ocultamos los paneles hasta que termine la animación
+    document.getElementById('panels').style.display = 'none';
+
+    if (selectedCompounds.length === 1) {
+        activeSelection = 'combo'; // for single, it's the compound
+        runTestingAnimation(() => {
+            document.getElementById('panels').style.display = 'block';
+            renderCompound(selectedCompounds[0]);
+        });
+        return;
+    }
+
+    activeSelection = 'combo'; // default to combination
+    runTestingAnimation(() => {
+        document.getElementById('panels').style.display = 'block';
+        renderCombination(selectedCompounds[0], selectedCompounds[1]);
+    });
+}
+
+function runTestingAnimation(callback) {
+    const animationDiv = document.getElementById('testing-animation');
+    if (!animationDiv) return callback();
+
+    const textDiv = animationDiv.querySelector('.testing-text');
+    const images = Array.from(animationDiv.querySelectorAll('.testing-image'));
+    if (images.length === 0) return callback();
+
+    const image = images[0];
+
+    const testingPhrases = [
+        "Testing this compound based on 17 endpoints of ageing",
+        "Analyzing effects on Metabolism",
+        "Examining Stem Cell activity",
+        "Evaluating ECM remodeling",
+        "Measuring Mitochondrial health",
+        "Tracking Inflam-aging markers",
+        "Observing Neuro-aging responses"
+    ];
+
+    const firstPhrase = testingPhrases[0];
+    const restPhrases = testingPhrases
+        .slice(1)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 1);
+    const allPhrases = [firstPhrase, ...restPhrases];
+
+    const imageFiles = [
+        "img/pipette.png",
+        "img/brown_models.png",
+        "img/exadex_adipose.png",
+        "img/exadex_vascularized.png"
+    ];
+
+    imageFiles.forEach(src => {
+        const imgPreload = new Image();
+        imgPreload.src = src;
+    });
+
+    const startIndex = Math.floor(Math.random() * imageFiles.length);
+    const orderedImages = imageFiles.slice(startIndex).concat(imageFiles.slice(0, startIndex));
+
+    animationDiv.style.display = 'flex';
+
+    let i = 0;
+    let imageIndex = 0;
+
+    function showNext() {
+        image.style.opacity = 0;
+        setTimeout(() => {
+            textDiv.textContent = allPhrases[i];
+            image.src = orderedImages[imageIndex];
+            image.onload = () => { image.style.opacity = 1; };
+            i++;
+            imageIndex = (imageIndex + 1) % orderedImages.length;
+        }, 500);
+    }
+
+    textDiv.textContent = allPhrases[i];
+    image.src = orderedImages[imageIndex];
+    image.onload = () => { image.style.opacity = 1; };
+    i++;
+    imageIndex = (imageIndex + 1) % orderedImages.length;
+
+    const interval = setInterval(() => {
+        if (i >= allPhrases.length) {
+            clearInterval(interval);
+            setTimeout(() => {
+                animationDiv.style.display = 'none';
+                callback();
+            }, 500);
+            return;
+        }
+        showNext();
+    }, 2000);
+}
+
+function renderCombination(keyA, keyB) {
+    const comboKey = `${keyA} + ${keyB}`;
+    const comboKeyReverse = `${keyB} + ${keyA}`;
+    const combo = combinationTemplates[comboKey] || combinationTemplates[comboKeyReverse];
+
+    let comboDatas, comboLabel;
+    if (combo && combo.datas && combo.datas.antiAging !== null) {
+        comboLabel = combo.label;
+        comboDatas = combo.datas;
+    } else {
+        const dataA = compounds[keyA].datas;
+        const dataB = compounds[keyB].datas;
+        comboLabel = `${compounds[keyA].label} + ${compounds[keyB].label}`;
+        comboDatas = {
+            heat: combineMaps(dataA.heat, dataB.heat),
+            radar: combineMaps(dataA.radar, dataB.radar),
+            antiAging: (dataA.antiAging + dataB.antiAging) / 2,
+            ageGain: (dataA.ageGain + dataB.ageGain) / 2
+        };
+    }
+
+    // Show all three cards
+    document.getElementById('score-card-a').style.display = 'block';
+    document.getElementById('score-card-b').style.display = 'block';
+    document.getElementById('score-card-combo').style.display = 'block';
+
+    // Render data for each
+    renderCompoundFromData(compounds[keyA].label, compounds[keyA].datas, 'a');
+    renderCompoundFromData(comboLabel, comboDatas, 'combo');
+    renderCompoundFromData(compounds[keyB].label, compounds[keyB].datas, 'b');
+
+    // Set up click handlers
+    document.getElementById('score-card-a').onclick = () => setActiveSelection('a');
+    document.getElementById('score-card-b').onclick = () => setActiveSelection('b');
+    document.getElementById('score-card-combo').onclick = () => setActiveSelection('combo');
+
+    // Update active classes
+    updateActiveCardClasses();
+}
+
+function setActiveSelection(selection) {
+    activeSelection = selection;
+    updateActiveCardClasses();
+    // Re-render heatmap and radar based on active selection
+    if (selectedCompounds.length === 1) {
+        const { datas } = compounds[selectedCompounds[0]];
+        renderHeatmap(datas.heat);
+        drawRadar(datas.radar);
+    } else if (selectedCompounds.length === 2) {
+        const keyA = selectedCompounds[0];
+        const keyB = selectedCompounds[1];
+        let datas;
+        if (activeSelection === 'a') {
+            datas = compounds[keyA].datas;
+        } else if (activeSelection === 'b') {
+            datas = compounds[keyB].datas;
+        } else {
+            // combo
+            const comboKey = `${keyA} + ${keyB}`;
+            const comboKeyReverse = `${keyB} + ${keyA}`;
+            const combo = combinationTemplates[comboKey] || combinationTemplates[comboKeyReverse];
+            if (combo && combo.datas) {
+                datas = combo.datas;
+            } else {
+                const dataA = compounds[keyA].datas;
+                const dataB = compounds[keyB].datas;
+                datas = {
+                    heat: combineMaps(dataA.heat, dataB.heat),
+                    radar: combineMaps(dataA.radar, dataB.radar),
+                    antiAging: (dataA.antiAging + dataB.antiAging) / 2,
+                    ageGain: (dataA.ageGain + dataB.ageGain) / 2
+                };
+            }
+        }
+        renderHeatmap(datas.heat);
+        drawRadar(datas.radar);
+    }
+}
+
+function updateActiveCardClasses() {
+    const cards = ['a', 'combo', 'b'];
+    cards.forEach(card => {
+        const el = document.getElementById(`score-card-${card}`);
+        if (el) {
+            if (card === activeSelection) {
+                el.classList.remove('inactive');
+                el.classList.add('active');
+            } else {
+                el.classList.remove('active');
+                el.classList.add('inactive');
+            }
+        }
+    });
+}
+
+function renderCompound(key) {
+    const { datas, label } = compounds[key];
+    
+    // Hide side cards for single compound
+    document.getElementById('score-card-a').style.display = 'none';
+    document.getElementById('score-card-b').style.display = 'none';
+    document.getElementById('score-card-combo').style.display = 'block';
+    document.getElementById('score-card-combo').classList.remove('inactive');
+    document.getElementById('score-card-combo').classList.add('active');
+    
+    renderCompoundFromData(label, datas, 'combo');
+}
+
+function renderCompoundFromData(label, datas, suffix = '') {
+    const nameEl = document.getElementById(`compound-name${suffix ? '-' + suffix : ''}`);
+    const scoreEl = document.getElementById(`score-value${suffix ? '-' + suffix : ''}`);
+    const ageEl = document.getElementById(`age-value${suffix ? '-' + suffix : ''}`);
+
+    if (nameEl) nameEl.textContent = label;
+
+    if (scoreEl) {
+        const s = datas.antiAging ?? 0;
+        const sign = s >= 0 ? '+' : '';
+        scoreEl.textContent = `${sign}${s.toFixed(2)}`;
+        scoreEl.style.color = getScoreColor(s);
+    }
+
+    if (ageEl) {
+        const ag = datas.ageGain ?? 0;
+        const ageSign = ag >= 0 ? '+' : '';
+        ageEl.textContent = `${ageSign}${ag.toFixed(1)} years`;
+        ageEl.style.color = ag >= 0 ? '#4CB292' : '#993C1E';
+    }
+
+    // Only render heatmap and radar if this is the active selection
+    if (suffix === '' || suffix === activeSelection) {
+        renderHeatmap(datas.heat);
+        drawRadar(datas.radar);
+    }
+}
+
+function getScoreColor(score) {
+    if (score > 0.3) return '#4CB292';
+    if (score < -0.3) return '#993C1E';
+    return '#999999';
+}
+
+function heatmapColor(v) {
+    if (v >= 2.0) return '#00ad76';
+    if (v >= 1.0) return '#52c09d';
+    if (v >= 0.3) return '#8edac2';
+    if (v > 0)   return '#C7E7DD';
+
+    if (v === 0) return '#FAFDFC';
+
+    if (v > -0.3) return '#F7F1EF';
+    if (v > -1.0) return '#dd937c';
+    if (v > -2.0) return '#d17759';
+    return '#993C1E';
+}
+
+function getTextColor(bgColor) {
+    let r, g, b;
+
+    if (bgColor.startsWith('#')) {
+        const hex = bgColor.replace('#', '');
+        r = parseInt(hex.substring(0, 2), 16);
+        g = parseInt(hex.substring(2, 4), 16);
+        b = parseInt(hex.substring(4, 6), 16);
+    } 
+    else {
+        const rgb = bgColor.match(/\d+/g);
+        if (!rgb) return '#000000';
+        r = parseInt(rgb[0]);
+        g = parseInt(rgb[1]);
+        b = parseInt(rgb[2]);
+    }
+
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    return brightness > 160 ? '#000000' : '#ffffff';
+}
+
+function renderHeatmap(heat) {
+    const heatmapBlock = document.getElementById('heatmap-block');
+    let html = '<div class="heatmap-table">';
+
+    compartments.forEach(name => {
+        const value = heat[name];
+        if (value === null || value === undefined) {
+            // Si no hay valor, mostrar guion y fondo gris claro
+            html += `
+                <div class="heatmap-row">
+                    <div class="heatmap-label">${name}</div>
+                    <div class="heatmap-bar" style="background:#eee; color:#333;">
+                        -
+                    </div>
+                </div>
+            `;
+        } else {
+            const color = heatmapColor(value);
+            const textColor = getTextColor(color);
+            const sign = value >= 0 ? '+' : '';
+            html += `
+                <div class="heatmap-row">
+                    <div class="heatmap-label">${name}</div>
+                    <div class="heatmap-bar" style="background:${color}; color:${textColor};">
+                        ${sign}${value.toFixed(2)}
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    html += '</div>';
+    heatmapBlock.innerHTML = html;
+}
+
+function drawRadar(radarData) {
+    const canvas = document.getElementById('radarCanvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    const cx = W / 2;
+    const cy = H / 2;
+    const maxR = Math.min(W, H) / 2 - 70;
+    const N = compartments.length;
+    
+    const values = compartments.map(c => radarData[c]);
+    const minVal = 0;
+    const maxVal = Math.max(...values, 1.5);
+    const step = Math.ceil((maxVal / 0.4)) * 0.4;
+    const range = step;
+
+    function angle(i) { return (Math.PI * 2 / N) * i - Math.PI / 2; }
+    function toXY(i, r) {
+        return { x: cx + Math.cos(angle(i)) * r, y: cy + Math.sin(angle(i)) * r };
+    }
+
+    function valToRadius(v) {
+        return (v / range) * maxR;
+    }
+
+    const ringValues = [];
+    for (let i = 0; i <= 5; i++) {
+        ringValues.push((range / 5) * i);
+    }
+
+    ringValues.forEach((ringVal, ringIdx) => {
+        const r = valToRadius(ringVal);
+        ctx.beginPath();
+        for (let i = 0; i <= N; i++) {
+            const { x, y } = toXY(i % N, r);
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+
+        if (Math.abs(ringVal - 1.0) < 0.05) {
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 3;
+        } else {
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 0.8;
+        }
+        ctx.stroke();
+    });
+
+    for (let i = 0; i < N; i++) {
+        const { x, y } = toXY(i, maxR);
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = '#e0e0e0';
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+    }
+
+    ctx.fillStyle = '#999';
+    ctx.font = 'bold 11px Arial';
+    ctx.textAlign = 'center';
+    ringValues.forEach(ringVal => {
+        const r = valToRadius(ringVal);
+        const labelY = cy - r - 8;
+        ctx.fillText(ringVal.toFixed(1), cx, labelY);
+    });
+
+    ctx.beginPath();
+    values.forEach((v, i) => {
+        const r = valToRadius(v);
+        const { x, y } = toXY(i, r);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(76, 178, 146, 0.2)';
+    ctx.fill();
+    ctx.strokeStyle = '#28f8f8';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    values.forEach((v, i) => {
+        const r = valToRadius(v);
+        const { x, y } = toXY(i, r);
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#28f8f8';
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    });
+
+    ctx.fillStyle = '#333';
+    ctx.font = 'bold 13px Arial';
+    for (let i = 0; i < N; i++) {
+        const labelR = maxR + 30;
+        const { x, y } = toXY(i, labelR);
+        const a = angle(i);
+        
+        if (Math.abs(Math.cos(a)) < 0.2) ctx.textAlign = 'center';
+        else ctx.textAlign = Math.cos(a) > 0 ? 'left' : 'right';
+        
+        ctx.textBaseline = Math.abs(Math.sin(a)) < 0.2 ? 'middle' : (Math.sin(a) > 0 ? 'top' : 'bottom');
+        ctx.fillText(compartments[i], x, y);
+    }
+}
+
+buildButtons();
