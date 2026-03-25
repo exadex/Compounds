@@ -12,13 +12,18 @@ body {
 }
 
 /* Logo pequeño arriba a la izquierda */
-.small-logo {
-    position: absolute;       /* para poder moverlo libremente */
-    top: 20px;                /* distancia desde arriba */
-    left: 20px;              /* distancia desde la izquierda, poner right si lo quieres en el lado derecho */
-    height: 60px;             /* tamaño */
-    width: auto;              /* mantiene proporción */
-    z-index: 10;              /* asegurarse que esté por encima */
+.logo-1 {
+    position: absolute;     /* para poder moverlo libremente */
+    top: 20px;              /* distancia desde arriba */
+    left: 20px;             /* distancia desde la izquierda, poner right si lo quieres en el lado derecho */
+    height: 60px;           /* tamaño */
+}
+
+.logo-2 {
+    position: absolute;
+    top: 90px; /* 👈 lo bajas manualmente */
+    left: 5px;
+    height: 130px;
 }
 
 /* Contacto */
@@ -46,7 +51,7 @@ body {
 }
 
 .contact-btn:hover {
-    background-color: #3a876e;
+    background-color: #B92231 ;
     transform: translateY(-2px);
 }
 
@@ -79,6 +84,13 @@ header h1 {
     margin-bottom: 12px;
 }
 
+.subtitle {
+    font-size: 1.1rem;
+    color: #000000;
+    margin-top: 3px;
+    letter-spacing: 0.2px;
+    font-weight: 400;
+}
 
 .compounds-grid {
     display: grid;
