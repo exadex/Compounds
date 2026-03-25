@@ -173,8 +173,8 @@ header h1 {
     border-radius: 20px;
     padding: 28px 32px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    max-width: 380px;
-    border-left: 6px solid #4CB292;
+    max-width: 400px;
+    border-left: 5px solid #4CB292;
     flex: 1;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -209,7 +209,7 @@ header h1 {
 }
 
 .score-main {
-    flex: 1;
+    flex: 1 1 50%; /* fuerza que cada columna tome la mitad */
 }
 
 .score-label {
@@ -221,8 +221,20 @@ header h1 {
     margin-bottom: 8px;
 }
 
-#score-value {
-    font-size: 2.8rem;
+#score-value-a {    /* longevity score compound A */
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+#score-value-b {    /* longevity score compound B */
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+#score-value-combo {    /* longevity score compound A + B */
+    font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 4px;
 }
@@ -241,8 +253,18 @@ header h1 {
     margin-bottom: 6px;
 }
 
-#age-value {
-    font-size: 1.6rem;
+#age-value-a {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+#age-value-b {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+#age-value-combo {
+    font-size: 1.2rem;
     font-weight: 600;
 }
 
