@@ -12,7 +12,7 @@
             <img src="img/Logo.png" class="logo-1">                         <!-- logo ExAdEx -->
             <img src="img/Logo_BioMol.png" class="logo-2">                  <!-- logo BioMol Panel Aging -->
             <h1>Explore compounds effect on ExAdEx facial model</h1>        <!-- titre -->
-            <p class="subtitle">BioMol Longevity Panel™</p>                     <!-- sous-titre -->
+            <p class="subtitle">Longevity Panel™</p>                        <!-- sous-titre -->
             <a href="https://exadex-innov.com/" target="_blank" class="contact-btn">Contact</a> <!-- contact -->
         </header>
 
@@ -89,15 +89,18 @@
 
                 <!-- Part 2: Heatmap -->
                 <div class="results-part part-2">
-                    <h3 class="part-title">Compartment heatmap — weighted mean log2</h3>
+                    <h3 class="part-title">Selected hallmarks of longevity</h3>
+                    <p class="subtitle">
+                        From <a href="https://doi.org/10.1016/j.cell.2022.11.001" target="_blank">Carlos et al., 2023</a>
+                    </p>
                     <div id="heatmap-block"></div>
                 </div>
 
                 <!-- Part 3: Radar -->
                 <div class="results-part part-3">
-                    <h3 class="part-title">Radar plot of the compartments</h3>
+                    <h3 class="part-title">Radar plot</h3>
                     <div id="radar-block">
-                        <canvas id="radarCanvas" width="500" height="500"></canvas>
+                        <img id="radarImage" src="radar/radar_background.png" alt="Radar plot">
                     </div>
                 </div>
             </div>

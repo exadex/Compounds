@@ -138,7 +138,7 @@ header h1 {
 .results-section {
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    gap: 30px;
 }
 
 .results-part {
@@ -281,8 +281,16 @@ header h1 {
     font-size: 1.4rem;
     font-weight: 600;
     color: #1a1a1a;
-    margin-bottom: 24px;
+
     letter-spacing: -0.3px;
+}
+
+.subtitle {
+    font-size: 0.85rem;      /* más pequeño que el título */
+    color: #666;             /* gris claro para no competir */
+    margin-top: 4px;         /* un poquito de espacio */
+    margin-bottom: 24px;
+    font-style: italic;      /* opcional, estilo académico */
 }
 
 .heatmap-table {
@@ -323,22 +331,28 @@ header h1 {
     margin-top: 20px;
     background: #fff;
     border-radius: 16px;
-    padding: 32px;
+    padding: 32px 32px 32px 32px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     display: flex;
     flex-direction: column;
 }
 
 #radar-block {
+    width: 500px;       /* resize the radar plot */
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    align-items: flex-start;
+    margin: 0 auto;     /* center it */
 }
 
-#radarCanvas {
-    max-width: 100%;
+#radarImage {
+    width: 100%;
     height: auto;
+    object-fit: contain; /* 👈 clave */
+    object-position: top;
+    
 }
+
 
 @media (max-width: 768px) {
     header h1 {
@@ -417,3 +431,5 @@ header h1 {
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
+
+
