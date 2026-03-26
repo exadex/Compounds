@@ -146,6 +146,13 @@ const combinationTemplates = {
             heat: {'Nutrient-sensing':0.310137821,'Stem cell capacity':-0.596737675,'Cell-ECM communication':-0.009807873,'Mitochondrial function':-0.27842268,'Chronic inflammation':0.231658745,'Neural communication':-0.860926549},
             antiAging:-0.067881327, ageGain:-1.0
         }
+    },
+    'GLP1-agonist + Botox Injected': {
+        label: 'GLP1-agonist + Botox Injected',
+        datas: {
+            heat: {'Nutrient-sensing':0.183615345,'Stem cell capacity':-0.099162315,'Cell-ECM communication':-0.280527905,'Mitochondrial function':0.102503615,'Chronic inflammation':0.03840470,'Neural communication':-0.41920177},
+            antiAging:-0.09231619, ageGain:-1.05
+        }
     }
 };
 
