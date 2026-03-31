@@ -1,31 +1,31 @@
-const compartments = ['Nutrient-sensing', 'Stem cell capacity', 'Cell-ECM communication', 'Mitochondrial function', 'Chronic inflammation', 'Neural communication'];
+const compartments = ['Nutrient-sensing', 'Stem cell capacity', 'Cell-ECM communication', 'Mitochondrial function', 'Chronic inflammation', 'Neural communication', 'Vascular/Lymph'];
 
 const compounds = {
     Caffeine: {
         label: 'Caffeine',
         datas: {
-            heat: { 'Nutrient-sensing':0.637075088, 'Stem cell capacity':-0.313295619, 'Cell-ECM communication':0.494311192, 'Mitochondrial function':-0.085210037, 'Chronic inflammation':0.562041378, 'Neural communication':0.135192712 },
+            heat: { 'Nutrient-sensing':0.637075088, 'Stem cell capacity':-0.313295619, 'Cell-ECM communication':0.494311192, 'Mitochondrial function':-0.085210037, 'Chronic inflammation':0.562041378, 'Neural communication':0.135192712, 'Vascular/Lymph':-0.6788408 },
             antiAging: 0.359252188, ageGain: 4.9
         }
     },
     'Anti-oxydant': {
         label: 'Anti-oxydant',
         datas: {
-            heat: { 'Nutrient-sensing':0.03197974, 'Stem cell capacity':0.16662445, 'Cell-ECM communication':-0.71044889, 'Mitochondrial function':0.2136198, 'Chronic inflammation':0.01795902, 'Neural communication':0.58335924 },
+            heat: { 'Nutrient-sensing':0.03197974, 'Stem cell capacity':0.16662445, 'Cell-ECM communication':-0.71044889, 'Mitochondrial function':0.2136198, 'Chronic inflammation':0.01795902, 'Neural communication':0.58335924, 'Vascular/Lymph':0.5244055 },
             antiAging: -0.13180946, ageGain: -2.0
         }
     },
     'Anti-inflammatory 1': {
         label: 'Anti-inflammatory 1',
         datas: {
-            heat: { 'Nutrient-sensing':0.97861158, 'Stem cell capacity':-1.74450409, 'Cell-ECM communication':1.37632473, 'Mitochondrial function':0.01276083, 'Chronic inflammation':0.98144941, 'Neural communication':0.41115602 },
+            heat: { 'Nutrient-sensing':0.97861158, 'Stem cell capacity':-1.74450409, 'Cell-ECM communication':1.37632473, 'Mitochondrial function':0.01276083, 'Chronic inflammation':0.98144941, 'Neural communication':0.41115602, 'Vascular/Lymph':-0.5493958 },
             antiAging: 0.64012325, ageGain: 7.4
         }
     },
     'Anti-inflammatory 2': {
         label: 'Anti-inflammatory 2',
         datas: {
-            heat: { 'Nutrient-sensing':0.68675392, 'Stem cell capacity':-0.78134409, 'Cell-ECM communication':-0.12020568, 'Mitochondrial function':-0.1745597, 'Chronic inflammation':0.42944386, 'Neural communication':-0.60663621 },
+            heat: { 'Nutrient-sensing':0.68675392, 'Stem cell capacity':-0.78134409, 'Cell-ECM communication':-0.12020568, 'Mitochondrial function':-0.1745597, 'Chronic inflammation':0.42944386, 'Neural communication':-0.60663621, 'Vascular/Lymph':-0.5842718 },
             antiAging: 0.11566192, ageGain: 1.7
         }
     },
