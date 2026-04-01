@@ -26,7 +26,7 @@ body {
     height: 130px;
 }
 
-/* Contacto */
+/* Botones de contacto y de la pagina EFFECTS */
 .main-header {
     display: flex;
     justify-content: space-between; /* logo a la izquierda, botón a la derecha */
@@ -35,7 +35,7 @@ body {
     position: relative; /* para que elementos absolutos dentro funcionen si los necesitas */
 }
 
-.contact-btn {
+.header-btn1 {
     position: absolute;   /* clave */
     top: 20px;            /* distancia desde arriba */
     right: 20px;          /* distancia desde la derecha */
@@ -50,7 +50,28 @@ body {
     transition: all 0.3s ease;
 }
 
-.contact-btn:hover {
+.header-btn2 {
+    position: absolute;   /* clave */
+    top: 70px;            /* distancia desde arriba */
+    right: 20px;          /* distancia desde la derecha */
+    
+    
+    padding: 8px 16px;
+    background-color: #BD7A31;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+
+.header-btn1:hover {
+    background-color: #B92231 ;
+    transform: translateY(-2px);
+}
+
+.header-btn2:hover {
     background-color: #B92231 ;
     transform: translateY(-2px);
 }
