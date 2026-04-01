@@ -11,7 +11,7 @@ const compounds = {
                 'Mitochondrial function': -0.085210037,
                 'Chronic inflammation': 1.024462525,
                 'Neural communication': 0.240828991,
-                'Vascular/Lymph': -0.678840836
+                'Vascular/Lymph': -0.67702961
             },
             score: { 
                 'Nutrient-sensing': 85,
@@ -20,7 +20,7 @@ const compounds = {
                 'Mitochondrial function': -6,
                 'Chronic inflammation': 103,
                 'Neural communication': 18,
-                'Vascular/Lymph': -38
+                'Vascular/Lymph': -37
             },
             antiAging: 0.359252188, 
             ageGain: 4.9
@@ -36,7 +36,7 @@ const compounds = {
                 'Mitochondrial function': 0.213619804,
                 'Chronic inflammation': -0.237989807,
                 'Neural communication': 0.637926737,
-                'Vascular/Lymph': 0.524405479
+                'Vascular/Lymph': 0.793948078
             },
             score: { 
                 'Nutrient-sensing': -7,
@@ -45,7 +45,7 @@ const compounds = {
                 'Mitochondrial function': 16,
                 'Chronic inflammation': -15,
                 'Neural communication': 56,
-                'Vascular/Lymph': 44
+                'Vascular/Lymph': 73
             },
             antiAging: -0.13180946, 
             ageGain: -2.0
@@ -61,7 +61,7 @@ const compounds = {
                 'Mitochondrial function': 0.01276083,
                 'Chronic inflammation': 1.330258958,
                 'Neural communication': 0.755055507,
-                'Vascular/Lymph': -0.5493958
+                'Vascular/Lymph': -0.194488716
             },
             score: { 
                 'Nutrient-sensing': 171,
@@ -70,7 +70,7 @@ const compounds = {
                 'Mitochondrial function': 1,
                 'Chronic inflammation': 151,
                 'Neural communication': 69,
-                'Vascular/Lymph': -32
+                'Vascular/Lymph': -13
             },
             antiAging: 0.64012325, 
             ageGain: 7.4
@@ -86,7 +86,7 @@ const compounds = {
                 'Mitochondrial function': -0.174555969,
                 'Chronic inflammation': 0.416352352,
                 'Neural communication': -0.064046621,
-                'Vascular/Lymph': -0.584271828
+                'Vascular/Lymph': -0.54795084
             },
             score: { 
                 'Nutrient-sensing': 51,
@@ -95,7 +95,7 @@ const compounds = {
                 'Mitochondrial function': -11,
                 'Chronic inflammation': 33,
                 'Neural communication': -4,
-                'Vascular/Lymph': -33
+                'Vascular/Lymph': -32
             },
             antiAging: 0.11566192, 
             ageGain: 1.7
@@ -189,7 +189,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.01663043,
                 'Chronic inflammation': 1.238520028,
                 'Neural communication': 0.600787552,
-                'Vascular/Lymph': -0.588229311
+                'Vascular/Lymph': -0.339250984
             },
             score: {
                 'Nutrient-sensing': 142,
@@ -198,7 +198,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -1,
                 'Chronic inflammation': 136,
                 'Neural communication': 52,
-                'Vascular/Lymph': -33
+                'Vascular/Lymph': -21
             },
             antiAging: 0.646010876,
             ageGain: 7.5
@@ -214,7 +214,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.112013817,
                 'Chronic inflammation': 0.842029473,
                 'Neural communication': 0.149366307,
-                'Vascular/Lymph': -0.612642531
+                'Vascular/Lymph': -0.586674471
             },
             score: {
                 'Nutrient-sensing': 74,
@@ -223,7 +223,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -7,
                 'Chronic inflammation': 79,
                 'Neural communication': 11,
-                'Vascular/Lymph': -35
+                'Vascular/Lymph': -33
             },
             antiAging: 0.282202719,
             ageGain: 4.0
@@ -264,7 +264,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.215880527,
                 'Chronic inflammation': 0.648168489,
                 'Neural communication': -0.087451156,
-                'Vascular/Lymph': -0.497781479
+                'Vascular/Lymph': -0.497238111
             },
             score: {
                 'Nutrient-sensing': 47,
@@ -389,7 +389,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.04343421,
                 'Chronic inflammation': 1.056086976,
                 'Neural communication': 0.509324869,
-                'Vascular/Lymph': -0.559858608
+                'Vascular/Lymph': -0.300527353
             },
             score: {
                 'Nutrient-sensing': 127,
@@ -398,7 +398,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -3,
                 'Chronic inflammation': 108,
                 'Neural communication': 42,
-                'Vascular/Lymph': -32
+                'Vascular/Lymph': -17
             },
             antiAging: 0.531876352,
             ageGain: 6.6
@@ -439,7 +439,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.14730092,
                 'Chronic inflammation': 0.862225992,
                 'Neural communication': 0.272507405,
-                'Vascular/Lymph': -0.458947968
+                'Vascular/Lymph': -0.458514481
             },
             score: {
                 'Nutrient-sensing': 92,
@@ -489,7 +489,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.27842268,
                 'Chronic inflammation': 0.222491368,
                 'Neural communication': -0.300864085,
-                'Vascular/Lymph': -0.469410777
+                'Vascular/Lymph': -0.458514481
             },
             score: {
                 'Nutrient-sensing': 27,
