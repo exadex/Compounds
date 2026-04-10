@@ -50,30 +50,64 @@ body {
     transition: all 0.3s ease;
 }
 
-.header-btn2 {
-    position: absolute;   /* clave */
-    top: 70px;            /* distancia desde arriba */
-    right: 20px;          /* distancia desde la derecha */
-    
-    
-    padding: 8px 16px;
-    background-color: #BD7A31;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-
 .header-btn1:hover {
     background-color: #B92231 ;
     transform: translateY(-2px);
 }
 
-.header-btn2:hover {
-    background-color: #B92231 ;
-    transform: translateY(-2px);
+.home-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2C2C2C;
+    text-decoration: none;
+    background: transparent;   /* 🔥 sin fondo */
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.home-btn svg {
+    width: 50%;     /* tamano de la casa, los dos */
+    height: 50%;
+}
+
+.home-btn:hover {
+    transform: translateY(-3px) scale(1.08);
+    color: #B92231; /* 🔥 cambia color al hover */
+    filter: drop-shadow(0 6px 10px rgba(185, 34, 49, 0.25));
+}
+
+.website-btn {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2C2C2C;
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.website-btn svg {
+    width: 50%;     /* tamano de la casa, los dos */
+    height: 50%;
+}
+
+.website-btn:hover {
+    transform: translateY(-3px) scale(1.08);
+    color: #B92231; /* 🔥 cambia color al hover */
+    filter: drop-shadow(0 6px 10px rgba(185, 34, 49, 0.25));
 }
 
 .container {
@@ -111,6 +145,74 @@ header h1 {
     margin-top: 3px;
     letter-spacing: 0.2px;
     font-weight: 400;
+}
+
+.home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 70px;      /* espacio entre los dos botones */
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.nav-btn {
+    padding: 25px 40px;    /* ancho (primer numero) total de cada boton */
+    width: 325px;       /* largo total de cada boton */
+    text-align: center;
+    color: #2A2A2A;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 16px; /* más moderno */
+    
+    /* 🔥 efecto “card” */
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+    
+    /* sombra base más elegante */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px; /* espacio entre titulo y subtitulo */
+}
+
+.nav-btn .title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+.nav-btn .subtitle {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.75;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+.btn-screening {
+    background: linear-gradient(135deg, #F7D774, #F3C95B);
+}
+
+.btn-regeneration {
+    background: linear-gradient(135deg, #F6C6AD, #F2A785);
+}
+
+.nav-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+.btn-screening:hover {
+    background: linear-gradient(135deg, #FAE7A0, #F7D774);
+    box-shadow: 0 12px 28px rgba(158, 113, 1, 0.5);
+}
+
+.btn-regeneration:hover {
+    background: linear-gradient(135deg, #F2A785, #EF976B);
+    box-shadow: 0 12px 28px rgba(185, 34, 49, 0.37);
 }
 
 .compounds-grid {
