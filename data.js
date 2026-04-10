@@ -1,7 +1,28 @@
-const compartments = ['Nutrient-sensing', 'Stem cell capacity', 'Cell-ECM communication', 'Mitochondrial function', 'Chronic inflammation', 'Neural communication', 'Vascular/Lymph'];
+const compartments = ['Nutrient-sensing', 'Stem cell capacity', 'Cell-ECM communication', 'Mitochondrial function', 'Chronic inflammation', 'Neural communication', 'Vascular/Lymphatic Flow'];
+
+const biomarkerDefinitions = {
+    'Nutrient-sensing': ['AdipoQ', 'AdipoQ secretion', 'GLUT4', 'FASN', 'PPARG'],
+    'Stem cell capacity': ['MSCA1', 'PDGFRa', 'inhBA'],
+    'Cell-ECM communication': ['COL1A1', 'COL3A1', 'COL1A1/COL3A1', 'TIMP1', 'TIMP1 secretion', 'Pro-col secretion'],
+    'Mitochondrial function': ['CPT1M', 'COX4'],
+    'Chronic inflammation': ['ICAM1', 'aSMA', 'SPP1'],
+    'Neural communication': ['NGF', 'STMN2', 'ENO2'],
+    'Vascular/Lymphatic Flow': ['CD31', 'LYVE1']
+};
+
+function createEmptyBiomarkers() {
+    const result = {};
+    Object.entries(biomarkerDefinitions).forEach(([category, items]) => {
+        result[category] = items.map(item => ({
+            name: item.name || item,
+            value: null
+        }));
+    });
+    return result;
+}
 
 const compounds = {
-    Caffeine: {
+    caffeine: {
         label: 'Caffeine',
         datas: {
             heat: { 
@@ -11,7 +32,7 @@ const compounds = {
                 'Mitochondrial function': -0.085210037,
                 'Chronic inflammation': 1.024462525,
                 'Neural communication': 0.240828991,
-                'Vascular/Lymph': -0.67702961
+                'Vascular/Lymphatic Flow': -0.67702961
             },
             score: { 
                 'Nutrient-sensing': 85,
@@ -20,13 +41,53 @@ const compounds = {
                 'Mitochondrial function': -6,
                 'Chronic inflammation': 103,
                 'Neural communication': 18,
-                'Vascular/Lymph': -37
+                'Vascular/Lymphatic Flow': -37
             },
             antiAging: 0.359252188, 
-            ageGain: 4.9
+            ageGain: 4.9,
+            biomarkers: {
+                'Nutrient-sensing': [
+                    { name: 'AdipoQ', value: 3 },
+                    { name: 'AdipoQ secretion', value: 40 },
+                    { name: 'GLUT4', value: 50 },
+                    { name: 'FASN', value: 0 },
+                    { name: 'PPARG', value: 90 }
+                ],
+                'Stem cell capacity': [
+                    { name: 'MSCA1', value: 75 },
+                    { name: 'PDGFRa', value: 60 },
+                    { name: 'inhBA', value: 20 }
+                ],
+                'Cell-ECM communication': [
+                    { name: 'COL1A1', value: 10 },
+                    { name: 'COL3A1', value: 45 },
+                    { name: 'COL1A1/COL3A1', value: 85 },
+                    { name: 'TIMP1', value: 3 },
+                    { name: 'TIMP1 secretion', value: 4 },
+                    { name: 'Pro-col secretion', value: 50 }
+                ],
+                'Mitochondrial function': [
+                    { name: 'CPT1M', value: 12 },
+                    { name: 'COX4', value: 10 }
+                ],
+                'Chronic inflammation': [
+                    { name: 'ICAM1', value: 75 },
+                    { name: 'aSMA', value: 96 },
+                    { name: 'SPP1', value: 53 }
+                ],
+                'Neural communication': [
+                    { name: 'NGF', value: 25 },
+                    { name: 'STMN2', value: 41 },
+                    { name: 'ENO2', value: 3 }
+                ],
+                'Vascular/Lymphatic Flow': [
+                    { name: 'CD31', value: 9 },
+                    { name: 'LYVE1', value: 15 }
+                ]
+            }
         }
     },
-    'Anti-oxydant': {
+    anti_oxidant: {
         label: 'Anti-oxydant',
         datas: {
             heat: { 
@@ -36,7 +97,7 @@ const compounds = {
                 'Mitochondrial function': 0.213619804,
                 'Chronic inflammation': -0.237989807,
                 'Neural communication': 0.637926737,
-                'Vascular/Lymph': 0.793948078
+                'Vascular/Lymphatic Flow': 0.793948078
             },
             score: { 
                 'Nutrient-sensing': -7,
@@ -45,14 +106,54 @@ const compounds = {
                 'Mitochondrial function': 16,
                 'Chronic inflammation': -15,
                 'Neural communication': 56,
-                'Vascular/Lymph': 73
+                'Vascular/Lymphatic Flow': 73
             },
             antiAging: -0.13180946, 
-            ageGain: -2.0
+            ageGain: -2.0,
+            biomarkers: {
+                'Nutrient-sensing': [
+                    { name: 'AdipoQ', value: null },
+                    { name: 'AdipoQ secretion', value: null },
+                    { name: 'GLUT4', value: null },
+                    { name: 'FASN', value: null },
+                    { name: 'PPARG', value: null }
+                ],
+                'Stem cell capacity': [
+                    { name: 'MSCA1', value: null },
+                    { name: 'PDGFRa', value: null },
+                    { name: 'inhBA', value: null }
+                ],
+                'Cell-ECM communication': [
+                    { name: 'COL1A1', value: null },
+                    { name: 'COL3A1', value: null },
+                    { name: 'COL1A1/COL3A1', value: null },
+                    { name: 'TIMP1', value: null },
+                    { name: 'TIMP1 secretion', value: null },
+                    { name: 'Pro-col secretion', value: null }
+                ],
+                'Mitochondrial function': [
+                    { name: 'CPT1M', value: null },
+                    { name: 'COX4', value: null }
+                ],
+                'Chronic inflammation': [
+                    { name: 'ICAM1', value: null },
+                    { name: 'aSMA', value: null },
+                    { name: 'SPP1', value: null }
+                ],
+                'Neural communication': [
+                    { name: 'NGF', value: null },
+                    { name: 'STMN2', value: null },
+                    { name: 'ENO2', value: null }
+                ],
+                'Vascular/Lymphatic Flow': [
+                    { name: 'CD31', value: null },
+                    { name: 'LYVE1', value: null }
+                ]
+            }
         }
     },
-    'Anti-inflammatory 1': {
-        label: 'Anti-inflammatory 1',
+    anti_inflammatory: {
+        label: 'Anti-inflammatory',
         datas: {
             heat: { 
                 'Nutrient-sensing': 1.439916494,
@@ -61,7 +162,7 @@ const compounds = {
                 'Mitochondrial function': 0.01276083,
                 'Chronic inflammation': 1.330258958,
                 'Neural communication': 0.755055507,
-                'Vascular/Lymph': -0.194488716
+                'Vascular/Lymphatic Flow': -0.194488716
             },
             score: { 
                 'Nutrient-sensing': 171,
@@ -70,14 +171,54 @@ const compounds = {
                 'Mitochondrial function': 1,
                 'Chronic inflammation': 151,
                 'Neural communication': 69,
-                'Vascular/Lymph': -13
+                'Vascular/Lymphatic Flow': -13
             },
             antiAging: 0.64012325, 
-            ageGain: 7.4
+            ageGain: 7.4,
+            biomarkers: {
+                'Nutrient-sensing': [
+                    { name: 'AdipoQ', value: null },
+                    { name: 'AdipoQ secretion', value: null },
+                    { name: 'GLUT4', value: null },
+                    { name: 'FASN', value: null },
+                    { name: 'PPARG', value: null }
+                ],
+                'Stem cell capacity': [
+                    { name: 'MSCA1', value: null },
+                    { name: 'PDGFRa', value: null },
+                    { name: 'inhBA', value: null }
+                ],
+                'Cell-ECM communication': [
+                    { name: 'COL1A1', value: null },
+                    { name: 'COL3A1', value: null },
+                    { name: 'COL1A1/COL3A1', value: null },
+                    { name: 'TIMP1', value: null },
+                    { name: 'TIMP1 secretion', value: null },
+                    { name: 'Pro-col secretion', value: null }
+                ],
+                'Mitochondrial function': [
+                    { name: 'CPT1M', value: null },
+                    { name: 'COX4', value: null }
+                ],
+                'Chronic inflammation': [
+                    { name: 'ICAM1', value: null },
+                    { name: 'aSMA', value: null },
+                    { name: 'SPP1', value: null }
+                ],
+                'Neural communication': [
+                    { name: 'NGF', value: null },
+                    { name: 'STMN2', value: null },
+                    { name: 'ENO2', value: null }
+                ],
+                'Vascular/Lymphatic Flow': [
+                    { name: 'CD31', value: null },
+                    { name: 'LYVE1', value: null }
+                ]
+            }
         }
     },
-    'Anti-inflammatory 2': {
-        label: 'Anti-inflammatory 2',
+    soothing: {
+        label: 'Soothing',
         datas: {
             heat: { 
                 'Nutrient-sensing': 0.59217289,
@@ -86,7 +227,7 @@ const compounds = {
                 'Mitochondrial function': -0.174555969,
                 'Chronic inflammation': 0.416352352,
                 'Neural communication': -0.064046621,
-                'Vascular/Lymph': -0.54795084
+                'Vascular/Lymphatic Flow': -0.54795084
             },
             score: { 
                 'Nutrient-sensing': 51,
@@ -95,14 +236,54 @@ const compounds = {
                 'Mitochondrial function': -11,
                 'Chronic inflammation': 33,
                 'Neural communication': -4,
-                'Vascular/Lymph': -32
+                'Vascular/Lymphatic Flow': -32
             },
             antiAging: 0.11566192, 
-            ageGain: 1.7
+            ageGain: 1.7,
+            biomarkers: {
+                'Nutrient-sensing': [
+                    { name: 'AdipoQ', value: null },
+                    { name: 'AdipoQ secretion', value: null },
+                    { name: 'GLUT4', value: null },
+                    { name: 'FASN', value: null },
+                    { name: 'PPARG', value: null }
+                ],
+                'Stem cell capacity': [
+                    { name: 'MSCA1', value: null },
+                    { name: 'PDGFRa', value: null },
+                    { name: 'inhBA', value: null }
+                ],
+                'Cell-ECM communication': [
+                    { name: 'COL1A1', value: null },
+                    { name: 'COL3A1', value: null },
+                    { name: 'COL1A1/COL3A1', value: null },
+                    { name: 'TIMP1', value: null },
+                    { name: 'TIMP1 secretion', value: null },
+                    { name: 'Pro-col secretion', value: null }
+                ],
+                'Mitochondrial function': [
+                    { name: 'CPT1M', value: null },
+                    { name: 'COX4', value: null }
+                ],
+                'Chronic inflammation': [
+                    { name: 'ICAM1', value: null },
+                    { name: 'aSMA', value: null },
+                    { name: 'SPP1', value: null }
+                ],
+                'Neural communication': [
+                    { name: 'NGF', value: null },
+                    { name: 'STMN2', value: null },
+                    { name: 'ENO2', value: null }
+                ],
+                'Vascular/Lymphatic Flow': [
+                    { name: 'CD31', value: null },
+                    { name: 'LYVE1', value: null }
+                ]
+            }
         }
     },
-    'GLP1-agonist': {
-        label: 'GLP1-agonist',
+    glp1_agonist: {
+        label: 'GLP-1 agonist',
         datas: {
             heat: { 
                 'Nutrient-sensing': 0.794075859,
@@ -111,7 +292,7 @@ const compounds = {
                 'Mitochondrial function': 0.725785573,
                 'Chronic inflammation': 0.429288758,
                 'Neural communication': -0.384254667,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             score: { 
                 'Nutrient-sensing': 73,
@@ -120,14 +301,54 @@ const compounds = {
                 'Mitochondrial function': 65,
                 'Chronic inflammation': 35,
                 'Neural communication': -23,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             antiAging: 0.26190119, 
-            ageGain: 3.7
+            ageGain: 3.7,
+            biomarkers: {
+                'Nutrient-sensing': [
+                    { name: 'AdipoQ', value: null },
+                    { name: 'AdipoQ secretion', value: null },
+                    { name: 'GLUT4', value: null },
+                    { name: 'FASN', value: null },
+                    { name: 'PPARG', value: null }
+                ],
+                'Stem cell capacity': [
+                    { name: 'MSCA1', value: null },
+                    { name: 'PDGFRa', value: null },
+                    { name: 'inhBA', value: null }
+                ],
+                'Cell-ECM communication': [
+                    { name: 'COL1A1', value: null },
+                    { name: 'COL3A1', value: null },
+                    { name: 'COL1A1/COL3A1', value: null },
+                    { name: 'TIMP1', value: null },
+                    { name: 'TIMP1 secretion', value: null },
+                    { name: 'Pro-col secretion', value: null }
+                ],
+                'Mitochondrial function': [
+                    { name: 'CPT1M', value: null },
+                    { name: 'COX4', value: null }
+                ],
+                'Chronic inflammation': [
+                    { name: 'ICAM1', value: null },
+                    { name: 'aSMA', value: null },
+                    { name: 'SPP1', value: null }
+                ],
+                'Neural communication': [
+                    { name: 'NGF', value: null },
+                    { name: 'STMN2', value: null },
+                    { name: 'ENO2', value: null }
+                ],
+                'Vascular/Lymphatic Flow': [
+                    { name: 'CD31', value: null },
+                    { name: 'LYVE1', value: null }
+                ]
+            }
         }
     },
-    'Botox Injected': {
-        label: 'Botox Injected',
+    botulinum_toxin: {
+        label: 'Botulinum toxin',
         datas: {
             heat: { 
                 'Nutrient-sensing': -0.227453232,
@@ -136,7 +357,7 @@ const compounds = {
                 'Mitochondrial function': -0.520778338,
                 'Chronic inflammation': -0.229850928,
                 'Neural communication': -0.853438165,
-                'Vascular/Lymph': -0.420184612
+                'Vascular/Lymphatic Flow': -0.420184612
             },
             score: { 
                 'Nutrient-sensing': -15,
@@ -145,17 +366,58 @@ const compounds = {
                 'Mitochondrial function': -30,
                 'Chronic inflammation': -15,
                 'Neural communication': -45,
-                'Vascular/Lymph': -25
+                'Vascular/Lymphatic Flow': -25
             },
             antiAging: -0.44653357, 
-            ageGain: -5.8
+            ageGain: -5.8,
+            biomarkers: {
+                'Nutrient-sensing': [
+                    { name: 'AdipoQ', value: null },
+                    { name: 'AdipoQ secretion', value: null },
+                    { name: 'GLUT4', value: null },
+                    { name: 'FASN', value: null },
+                    { name: 'PPARG', value: null }
+                ],
+                'Stem cell capacity': [
+                    { name: 'MSCA1', value: null },
+                    { name: 'PDGFRa', value: null },
+                    { name: 'inhBA', value: null }
+                ],
+                'Cell-ECM communication': [
+                    { name: 'COL1A1', value: null },
+                    { name: 'COL3A1', value: null },
+                    { name: 'COL1A1/COL3A1', value: null },
+                    { name: 'TIMP1', value: null },
+                    { name: 'TIMP1 secretion', value: null },
+                    { name: 'Pro-col secretion', value: null }
+                ],
+                'Mitochondrial function': [
+                    { name: 'CPT1M', value: null },
+                    { name: 'COX4', value: null }
+                ],
+                'Chronic inflammation': [
+                    { name: 'ICAM1', value: null },
+                    { name: 'aSMA', value: null },
+                    { name: 'SPP1', value: null }
+                ],
+                'Neural communication': [
+                    { name: 'NGF', value: null },
+                    { name: 'STMN2', value: null },
+                    { name: 'ENO2', value: null }
+                ],
+                'Vascular/Lymphatic Flow': [
+                    { name: 'CD31', value: null },
+                    { name: 'LYVE1', value: null }
+                ]
+            }
         }
     }
 };
 
 const combinationTemplates = {
-    'Caffeine + Anti-oxydant': {
+    caffeine_anti_oxidant: {
         label: 'Caffeine + Anti-oxydant',
+        compounds: ["caffeine", "anti_oxidant"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.593236415,
@@ -164,7 +426,7 @@ const combinationTemplates = {
                 'Mitochondrial function': 0.123970852,
                 'Chronic inflammation': 0.645726825,
                 'Neural communication': 0.518797414,
-                'Vascular/Lymph': 0.163431585
+                'Vascular/Lymphatic Flow': 0.163431585
             },
             score: {
                 'Nutrient-sensing': 51,
@@ -173,14 +435,15 @@ const combinationTemplates = {
                 'Mitochondrial function': 9,
                 'Chronic inflammation': 56,
                 'Neural communication': 43,
-                'Vascular/Lymph': 12
+                'Vascular/Lymphatic Flow': 12
             },
             antiAging: 0.294142315,
             ageGain: 4.1
         }
     },
-    'Caffeine + Anti-inflammatory 1': {
-        label: 'Caffeine + Anti-inflammatory 1',
+    caffeine_anti_inflammatory: {
+        label: 'Caffeine + Anti-inflammatory',
+        compounds: ["caffeine", "anti_inflammatory"],
         datas: {
             heat: {
                 'Nutrient-sensing': 1.274888827,
@@ -189,7 +452,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.01663043,
                 'Chronic inflammation': 1.238520028,
                 'Neural communication': 0.600787552,
-                'Vascular/Lymph': -0.339250984
+                'Vascular/Lymphatic Flow': -0.339250984
             },
             score: {
                 'Nutrient-sensing': 142,
@@ -198,14 +461,15 @@ const combinationTemplates = {
                 'Mitochondrial function': -1,
                 'Chronic inflammation': 136,
                 'Neural communication': 52,
-                'Vascular/Lymph': -21
+                'Vascular/Lymphatic Flow': -21
             },
             antiAging: 0.646010876,
             ageGain: 7.5
         }
     },
-    'Caffeine + Anti-inflammatory 2': {
-        label: 'Caffeine + Anti-inflammatory 2',
+    caffeine_soothing: {
+        label: 'Caffeine + Soothing',
+        compounds: ["caffeine", "soothing"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.800528855,
@@ -214,7 +478,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.112013817,
                 'Chronic inflammation': 0.842029473,
                 'Neural communication': 0.149366307,
-                'Vascular/Lymph': -0.586674471
+                'Vascular/Lymphatic Flow': -0.586674471
             },
             score: {
                 'Nutrient-sensing': 74,
@@ -223,14 +487,15 @@ const combinationTemplates = {
                 'Mitochondrial function': -7,
                 'Chronic inflammation': 79,
                 'Neural communication': 11,
-                'Vascular/Lymph': -33
+                'Vascular/Lymphatic Flow': -33
             },
             antiAging: 0.282202719,
             ageGain: 4.0
         }
     },
-    'Caffeine + GLP1-agonist': {
-        label: 'Caffeine + GLP1-agonist',
+    caffeine_glp1_agonist: {
+        label: 'Caffeine + GLP-1 agonist',
+        compounds: ["caffeine", "glp1_agonist"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.861099746,
@@ -239,7 +504,7 @@ const combinationTemplates = {
                 'Mitochondrial function': 0.48248689,
                 'Chronic inflammation': 0.845910395,
                 'Neural communication': 0.053303893,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             score: {
                 'Nutrient-sensing': 82,
@@ -248,14 +513,15 @@ const combinationTemplates = {
                 'Mitochondrial function': 40,
                 'Chronic inflammation': 80,
                 'Neural communication': 4,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             antiAging: 0.478858626,
             ageGain: 6.2
         }
     },
-    'Caffeine + Botox Injected': {
-        label: 'Caffeine + Botox Injected',
+    caffeine_botulinum_toxin: {
+        label: 'Caffeine + Botulinum toxin',
+        compounds: ["caffeine", "botulinum_toxin"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.554641019,
@@ -264,7 +530,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.215880527,
                 'Chronic inflammation': 0.648168489,
                 'Neural communication': -0.087451156,
-                'Vascular/Lymph': -0.497238111
+                'Vascular/Lymphatic Flow': -0.497238111
             },
             score: {
                 'Nutrient-sensing': 47,
@@ -273,14 +539,15 @@ const combinationTemplates = {
                 'Mitochondrial function': -14,
                 'Chronic inflammation': 57,
                 'Neural communication': -6,
-                'Vascular/Lymph': -29
+                'Vascular/Lymphatic Flow': -29
             },
             antiAging: 0.12717105,
             ageGain: 1.9
         }
     },
-    'Anti-oxydant + Anti-inflammatory 1': {
-        label: 'Anti-oxydant + Anti-inflammatory 1',
+    anti_oxidant_anti_inflammatory: {
+        label: 'Anti-oxydant + Anti-inflammatory',
+        compounds: ["anti_oxidant", "anti_inflammatory"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.978300972,
@@ -289,7 +556,7 @@ const combinationTemplates = {
                 'Mitochondrial function': 0.153362112,
                 'Chronic inflammation': 0.859784328,
                 'Neural communication': 0.719916876,
-                'Vascular/Lymph': 0.202265096
+                'Vascular/Lymphatic Flow': 0.202265096
             },
             score: {
                 'Nutrient-sensing': 97,
@@ -298,14 +565,15 @@ const combinationTemplates = {
                 'Mitochondrial function': 11,
                 'Chronic inflammation': 81,
                 'Neural communication': 65,
-                'Vascular/Lymph': 15
+                'Vascular/Lymphatic Flow': 15
             },
             antiAging: 0.550191947,
             ageGain: 6.8
         }
     },
-    'Anti-oxydant + Anti-inflammatory 2': {
-        label: 'Anti-oxydant + Anti-inflammatory 2',
+    anti_oxidant_soothing: {
+        label: 'Anti-oxydant + Soothing',
+        compounds: ["anti_oxidant", "soothing"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.384880449,
@@ -314,7 +582,7 @@ const combinationTemplates = {
                 'Mitochondrial function': 0.097167072,
                 'Chronic inflammation': 0.220049704,
                 'Neural communication': 0.42733473,
-                'Vascular/Lymph': 0.191802287
+                'Vascular/Lymphatic Flow': 0.191802287
             },
             score: {
                 'Nutrient-sensing': 31,
@@ -323,14 +591,15 @@ const combinationTemplates = {
                 'Mitochondrial function': 7,
                 'Chronic inflammation': 16,
                 'Neural communication': 34,
-                'Vascular/Lymph': 14
+                'Vascular/Lymphatic Flow': 14
             },
             antiAging: 0.125264588,
             ageGain: 1.9
         }
     },
-    'Anti-oxydant + GLP1-agonist': {
-        label: 'Anti-oxydant + GLP1-agonist',
+    anti_oxidant_glp1_agonist: {
+        label: 'Anti-oxydant + GLP-1 agonist',
+        compounds: ["anti_oxidant", "glp1_agonist"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.526212528,
@@ -339,7 +608,7 @@ const combinationTemplates = {
                 'Mitochondrial function': 0.572135843,
                 'Chronic inflammation': 0.229105189,
                 'Neural communication': 0.331272316,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             score: {
                 'Nutrient-sensing': 44,
@@ -348,14 +617,15 @@ const combinationTemplates = {
                 'Mitochondrial function': 49,
                 'Chronic inflammation': 17,
                 'Neural communication': 26,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             antiAging: 0.204399469,
             ageGain: 3.0
         }
     },
-    'Anti-oxydant + Botox Injected': {
-        label: 'Anti-oxydant + Botox Injected',
+    anti_oxidant_botulinum_toxin: {
+        label: 'Anti-oxydant + Botulinum toxin',
+        compounds: ["anti_oxidant", "botulinum_toxin"],
         datas: {
             heat: {
                 'Nutrient-sensing': -0.137397308,
@@ -364,7 +634,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.006699638,
                 'Chronic inflammation': -0.232292592,
                 'Neural communication': 0.190517267,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             score: {
                 'Nutrient-sensing': -9,
@@ -373,14 +643,15 @@ const combinationTemplates = {
                 'Mitochondrial function': 0,
                 'Chronic inflammation': -15,
                 'Neural communication': 14,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             antiAging: -0.104612476,
             ageGain: -1.6
         }
     },
-    'Anti-inflammatory 1 + Anti-inflammatory 2': {
-        label: 'Anti-inflammatory 1 + Anti-inflammatory 2',
+    anti_inflammatory_soothing: {
+        label: 'Anti-inflammatory + Soothing',
+        compounds: ["anti_inflammatory", "soothing"],
         datas: {
             heat: {
                 'Nutrient-sensing': 1.185593413,
@@ -389,7 +660,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.04343421,
                 'Chronic inflammation': 1.056086976,
                 'Neural communication': 0.509324869,
-                'Vascular/Lymph': -0.300527353
+                'Vascular/Lymphatic Flow': -0.300527353
             },
             score: {
                 'Nutrient-sensing': 127,
@@ -398,14 +669,15 @@ const combinationTemplates = {
                 'Mitochondrial function': -3,
                 'Chronic inflammation': 108,
                 'Neural communication': 42,
-                'Vascular/Lymph': -17
+                'Vascular/Lymphatic Flow': -17
             },
             antiAging: 0.531876352,
             ageGain: 6.6
         }
     },
-    'Anti-inflammatory 1 + GLP1-agonist': {
-        label: 'Anti-inflammatory 1 + GLP1-agonist',
+    anti_inflammatory_glp1_agonist: {
+        label: 'Anti-inflammatory + GLP-1 agonist',
+        compounds: ["anti_inflammatory", "glp1_agonist"],
         datas: {
             heat: {
                 'Nutrient-sensing': 1.246164304,
@@ -414,7 +686,7 @@ const combinationTemplates = {
                 'Mitochondrial function': 0.51187815,
                 'Chronic inflammation': 1.059967898,
                 'Neural communication': 0.413262455,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             score: {
                 'Nutrient-sensing': 137,
@@ -423,14 +695,15 @@ const combinationTemplates = {
                 'Mitochondrial function': 43,
                 'Chronic inflammation': 108,
                 'Neural communication': 33,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             antiAging: 0.707418044,
             ageGain: 7.9
         }
     },
-    'Anti-inflammatory 1 + Botox Injected': {
-        label: 'Anti-inflammatory 1 + Botox Injected',
+    anti_inflammatory_botulinum_toxin: {
+        label: 'Anti-inflammatory + Botulinum toxin',
+        compounds: ["anti_inflammatory", "botulinum_toxin"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.939705576,
@@ -439,7 +712,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.14730092,
                 'Chronic inflammation': 0.862225992,
                 'Neural communication': 0.272507405,
-                'Vascular/Lymph': -0.458514481
+                'Vascular/Lymphatic Flow': -0.458514481
             },
             score: {
                 'Nutrient-sensing': 92,
@@ -448,14 +721,15 @@ const combinationTemplates = {
                 'Mitochondrial function': -10,
                 'Chronic inflammation': 82,
                 'Neural communication': 21,
-                'Vascular/Lymph': -27
+                'Vascular/Lymphatic Flow': -27
             },
             antiAging: 0.391963924,
             ageGain: 5.3
         }
     },
-    'Anti-inflammatory 2 + GLP1-agonist': {
-        label: 'Anti-inflammatory 2 + GLP1-agonist',
+    soothing_glp1_agonist: {
+        label: 'Soothing + GLP-1 agonist',
+        compounds: ["soothing", "glp1_agonist"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.733504968,
@@ -464,7 +738,7 @@ const combinationTemplates = {
                 'Mitochondrial function': 0.455683111,
                 'Chronic inflammation': 0.425407836,
                 'Neural communication': -0.160109035,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             score: {
                 'Nutrient-sensing': 66,
@@ -473,14 +747,15 @@ const combinationTemplates = {
                 'Mitochondrial function': 37,
                 'Chronic inflammation': 34,
                 'Neural communication': -11,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             antiAging: 0.305408792,
             ageGain: 4.3
         }
     },
-    'Anti-inflammatory 2 + Botox Injected': {
-        label: 'Anti-inflammatory 2 + Botox Injected',
+    soothing_botulinum_toxin: {
+        label: 'Soothing + Botulinum toxin',
+        compounds: ["soothing", "botulinum_toxin"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.346285053,
@@ -489,7 +764,7 @@ const combinationTemplates = {
                 'Mitochondrial function': -0.27842268,
                 'Chronic inflammation': 0.222491368,
                 'Neural communication': -0.300864085,
-                'Vascular/Lymph': -0.458514481
+                'Vascular/Lymphatic Flow': -0.458514481
             },
             score: {
                 'Nutrient-sensing': 27,
@@ -498,14 +773,15 @@ const combinationTemplates = {
                 'Mitochondrial function': -18,
                 'Chronic inflammation': 17,
                 'Neural communication': -19,
-                'Vascular/Lymph': -28
+                'Vascular/Lymphatic Flow': -28
             },
             antiAging: -0.067881327,
             ageGain: -1.0
         }
     },
-    'GLP1-agonist + Botox Injected': {
-        label: 'GLP1-agonist + Botox Injected',
+    glp1_agonist_botulinum_toxin: {
+        label: 'GLP-1 agonist + Botulinum toxin',
+        compounds: ["glp1_agonist", "botulinum_toxin"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.487617132,
@@ -514,7 +790,7 @@ const combinationTemplates = {
                 'Mitochondrial function': 0.3518164,
                 'Chronic inflammation': 0.231546852,
                 'Neural communication': -0.525009717,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             score: {
                 'Nutrient-sensing': 40,
@@ -523,7 +799,7 @@ const combinationTemplates = {
                 'Mitochondrial function': 28,
                 'Chronic inflammation': 17,
                 'Neural communication': -31,
-                'Vascular/Lymph': null
+                'Vascular/Lymphatic Flow': null
             },
             antiAging: -0.09231619,
             ageGain: -1.05

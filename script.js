@@ -89,7 +89,7 @@ function runTestingAnimation(callback) {
     const image = images[0];
 
     const testingPhrases = [
-        "Testing this compound based on 17 endpoints of ageing",
+        "Testing this compound based on 24 endpoints of ageing",
         "Analyzing effects on metabolism",
         "Examining stem cell activity",
         "Evaluating ECM remodeling",
@@ -156,8 +156,8 @@ function runTestingAnimation(callback) {
 }
 
 function renderCombination(keyA, keyB) {
-    const comboKey = `${keyA} + ${keyB}`;
-    const comboKeyReverse = `${keyB} + ${keyA}`;
+    const comboKey = `${keyA}_${keyB}`;
+    const comboKeyReverse = `${keyB}_${keyA}`;
     const combo = combinationTemplates[comboKey] || combinationTemplates[comboKeyReverse];
 
     let comboDatas, comboLabel;
@@ -201,7 +201,7 @@ function setActiveSelection(selection) {
     if (selectedCompounds.length === 1) {
         const { datas } = compounds[selectedCompounds[0]];
         updateRadarImage(compounds[selectedCompounds[0]].label);
-        renderHeatmapOrScore(datas);
+        renderAll(datas);
     } else if (selectedCompounds.length === 2) {
         const keyA = selectedCompounds[0];
         const keyB = selectedCompounds[1];
@@ -214,8 +214,8 @@ function setActiveSelection(selection) {
             label = compounds[keyB].label;
         } else {
             // combo
-            const comboKey = `${keyA} + ${keyB}`;
-            const comboKeyReverse = `${keyB} + ${keyA}`;
+            const comboKey = `${keyA}_${keyB}`;
+            const comboKeyReverse = `${keyB}_${keyA}`;
             const combo = combinationTemplates[comboKey] || combinationTemplates[comboKeyReverse];
             if (combo && combo.datas) {
                 datas = combo.datas;
@@ -233,7 +233,7 @@ function setActiveSelection(selection) {
             }
         }
         updateRadarImage(label);
-        renderHeatmapOrScore(datas);
+        renderAll(datas);
     }
 }
 
@@ -282,15 +282,19 @@ function renderCompoundFromData(label, datas, suffix = '') {
 
     if (ageEl) {
         const ag = datas.ageGain ?? 0;
-        const ageSign = ag >= 0 ? '+' : '';
-        ageEl.textContent = `${ageSign}${ag.toFixed(1)} years`;
+
+        const label = ag >= 0 ? 'years younger' : 'years older';
+        const absValue = Math.abs(ag);
+
+        ageEl.textContent = `${absValue.toFixed(1)} ${label}`;
+
         ageEl.style.color = ag >= 0 ? '#4CB292' : '#993C1E';
     }
 
     // Only render heatmap and radar if this is the active selection
     if (suffix === '' || suffix === activeSelection) {
         updateRadarImage(label);
-        renderHeatmapOrScore(datas);
+        renderAll(datas);
     }
 }
 
@@ -349,55 +353,13 @@ function getTextColor(bgColor) {
     return brightness > 160 ? '#000000' : '#ffffff';
 }
 
-function renderHeatmap(heat) {
-    const heatmapBlock = document.getElementById('heatmap-block');
+function renderCompartmentTable(data, mode, targetId) {
+    const block = document.getElementById(targetId);
+
     let html = '<div class="heatmap-table">';
 
     compartments.forEach(name => {
-        const value = heat[name];
-        if (value === null || value === undefined) {
-            // Si no hay valor, mostrar guion y fondo gris claro
-            html += `
-                <div class="heatmap-row">
-                    <div class="heatmap-label">${name}</div>
-                    <div class="heatmap-bar" style="background:#eee; color:#333;">
-                        -
-                    </div>
-                </div>
-            `;
-        } else {
-            const color = heatmapColor(value);
-            const textColor = getTextColor(color);
-            const sign = value >= 0 ? '+' : '';
-            html += `
-                <div class="heatmap-row">
-                    <div class="heatmap-label">${name}</div>
-                    <div class="heatmap-bar" style="background:${color}; color:${textColor};">
-                        ${sign}${value.toFixed(2)}
-                    </div>
-                </div>
-            `;
-        }
-    });
-
-    html += '</div>';
-    heatmapBlock.innerHTML = html;
-}
-
-function renderHeatmapOrScore(datas) {
-    if (window.useScoreHeatmap && datas.score) {
-        renderScore(datas.score);
-    } else {
-        renderHeatmap(datas.heat);
-    }
-}
-
-function renderScore(score) {
-    const heatmapBlock = document.getElementById('heatmap-block');
-    let html = '<div class="heatmap-table">';
-
-    compartments.forEach(name => {
-        const value = score[name];
+        const value = data[name];
 
         if (value === null || value === undefined) {
             html += `
@@ -408,36 +370,153 @@ function renderScore(score) {
                     </div>
                 </div>
             `;
-        } else {
-            // 👇 de momento usamos mismo color (lo cambiaremos luego)
-            const color = scoreColor(value);
-            const textColor = getTextColor(color);
-            const sign = value >= 0 ? '+' : '';
-
-            html += `
-                <div class="heatmap-row">
-                    <div class="heatmap-label">${name}</div>
-                    <div class="heatmap-bar" style="background:${color}; color:${textColor};">
-                        ${sign}${value}%
-                    </div>
-                </div>
-            `;
+            return;
         }
+
+        const isScore = mode === 'score';
+        const color = isScore ? scoreColor(value) : heatmapColor(value);
+        const textColor = getTextColor(color);
+
+        const sign = value >= 0 ? '+' : '';
+        const suffix = isScore ? '%' : '';
+
+        html += `
+            <div class="heatmap-row">
+                <div class="heatmap-label">${name}</div>
+                <div class="heatmap-bar" style="background:${color}; color:${textColor};">
+                    ${sign}${value}${suffix}
+                </div>
+            </div>
+        `;
     });
 
     html += '</div>';
-    heatmapBlock.innerHTML = html;
+    block.innerHTML = html;
+}
+
+function renderCompartments() {
+    const block = document.getElementById('compartments-block');
+
+    let html = '<div class="table">';
+
+    compartments.forEach(name => {
+        html += `
+            <div class="row">
+                <div class="cell">${name}</div>
+            </div>
+        `;
+    });
+
+    html += '</div>';
+    block.innerHTML = html;
+}
+
+function renderHeatmap(datas) {
+    const block = document.getElementById('heatmap-block');
+
+    let html = '<div class="table">';
+
+    compartments.forEach(name => {
+        const value = datas.heat?.[name];
+
+        const color = value != null ? heatmapColor(value) : '#eee';
+        const text = value != null ? `${value.toFixed(2)}` : '-';
+
+        html += `
+            <div class="row">
+                <div class="cell" style="background:${color}">
+                    ${text}
+                </div>
+            </div>
+        `;
+    });
+
+    html += '</div>';
+    block.innerHTML = html;
+}
+
+function renderScore(datas) {
+    const block = document.getElementById('score-block');
+
+    let html = '<div class="table">';
+
+    compartments.forEach(name => {
+        const value = datas.score?.[name];
+        const color = value != null ? scoreColor(value) : '#eee';
+        const sign = value >= 0 ? '+' : '';
+
+        html += `
+            <div class="row">
+                <div class="cell" style="background:${color}">
+                    ${sign}${value?.toFixed(2) ?? '-'}
+                </div>
+            </div>
+        `;
+    });
+
+    html += '</div>';
+    block.innerHTML = html;
+}
+
+function getMechanismText(value, compartment) {
+
+    if (value >= 75) return `Strong beneficial effect on ${compartment}`;
+    if (value >= 50) return `Good positive modulation of ${compartment}`;
+    if (value >= 25) return `Moderate improvement in ${compartment}`;
+    if (value > 0)   return `Mild positive effect on ${compartment}`;
+
+    if (value === 0) return `No detectable effect on ${compartment}`;
+
+    if (value > -25) return `Mild negative modulation of ${compartment}`;
+    if (value > -50) return `Moderate suppression of ${compartment}`;
+    if (value > -75) return `Strong inhibitory effect on ${compartment}`;
+
+    return `Severe suppression of ${compartment}`;
+}
+
+function renderMechanism(datas) {
+    const block = document.getElementById('mechanism-block');
+
+    let html = '<div class="table">';
+
+    compartments.forEach(name => {
+        const value = datas.score?.[name];
+
+        let text = 'No data available';
+
+        if (value !== null && value !== undefined) {
+            text = getMechanismText(value, name);
+        }
+
+        html += `
+            <div class="row">
+                <div class="cell">
+                    ${text}
+                </div>
+            </div>
+        `;
+    });
+
+    html += '</div>';
+    block.innerHTML = html;
+}
+
+function renderAll(datas) {
+    renderCompartments();
+    renderHeatmap(datas);
+    renderScore(datas);
+    renderMechanism(datas);
 }
 
 function updateRadarImage(compoundName) {
     const img = document.getElementById("radarImage");
 
     const radarImages = {
-        Caffeine: "radar/radar_caf.png",
-        'Anti-oxydant': "radar/radar_nac.png",
-        'Anti-inflammatory 1': "radar/radar_dex.png",
-        'Anti-inflammatory 2': "radar/radar_enox.png",
-        'GLP1-agonist': "radar/radar_lira.png",
+        caffeine: "radar/radar_caf.png",
+        anti_oxidant: "radar/radar_nac.png",
+        anti_inflammatory: "radar/radar_dex.png",
+        soothing: "radar/radar_enox.png",
+        glp1_agonist: "radar/radar_lira.png",
         'Botox Injected': "radar/radar_botox.png",
         'Caffeine + Anti-oxydant': "radar/radar_caf_nac.png",
         'Caffeine + Anti-inflammatory 1': "radar/radar_caf_dex.png",

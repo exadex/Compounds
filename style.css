@@ -416,37 +416,52 @@ header h1 {
     font-style: italic;      /* opcional, estilo académico */
 }
 
-.heatmap-table {
+.multi-metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+    gap: 16px;
+    align-items: start;
+}
+
+.table {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
+}
+
+.row {
+    height: 44px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cell {
     width: 100%;
-}
-
-.heatmap-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.heatmap-label {
-    flex: 1;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #333;
-}
-
-.heatmap-bar {
-    flex: 2;
-    height: 40px;
-    border-radius: 8px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    padding: 20px 30px;
+
     font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    min-width: 80px;
+    font-size: 0.9rem;
+
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+#compartments-block .cell {
+    justify-content: flex-start;    /* texto a la izquierda */
+}
+
+#mechanism-block .cell {
+    justify-content: flex-start;    /* texto a la izquierda */
+}
+
+#heatmap-block .cell,
+#score-block .cell {
+    height: 44px;
+    font-size: 0.88rem;         /* tamano heatmap y score */
 }
 
 /* Part 3: Radar */
