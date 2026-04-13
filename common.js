@@ -821,7 +821,7 @@ function renderOptimalGraph(datas, label, isSolo) {
                 } else {
                     // Modo NORMAL: solo el compuesto original
                     renderOptimalGraph(compounds[compoundKey].datas, compoundKey, true);
-                    labelContainer.textContent = `Compound: ${compoundKey}`;
+                    labelContainer.textContent = `Compound: ${compounds[compoundKey].label}`;
                 }
 
                 // Cambiar color del botón
@@ -829,7 +829,8 @@ function renderOptimalGraph(datas, label, isSolo) {
                 if (isOptimalMode) {
                     labelContainer.textContent = `Optimal Combination: ${bestCombo.label}`;
                 } else {
-                    labelContainer.textContent = `Compound: ${selectedCompounds[0]}`;
+                    const compoundKey = selectedCompounds[0];
+                    labelContainer.textContent = `Compound: ${compounds[compoundKey].label}`;
                 }
             };
 

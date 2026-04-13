@@ -18,23 +18,58 @@ function renderCompound(key) {
 }
 
 function renderCombination(keyA, keyB) {
-    const dataA = compounds[keyA].datas;
-    const dataB = compounds[keyB].datas;
 
-    const datas = {
-        score: combineMaps(dataA.score || {}, dataB.score || {})
-    };
+    const comboKey = `${keyA}_${keyB}`;
+    const comboKeyReverse = `${keyB}_${keyA}`;
+
+    const combo =
+        combinationTemplates[comboKey] ||
+        combinationTemplates[comboKeyReverse];
+
+    let datas;
+    let label;
+
+    if (combo && combo.datas) {
+        // ✅ USE PREDEFINED DATA (TU CASO IDEAL)
+        datas = combo.datas;
+        label = combo.label;
+
+    } else {
+        // fallback: computed combination
+        const dataA = compounds[keyA].datas;
+        const dataB = compounds[keyB].datas;
+
+        datas = {
+            heat: combineMaps(dataA.heat || {}, dataB.heat || {}),
+            score: combineMaps(dataA.score || {}, dataB.score || {}),
+            antiAging: (dataA.antiAging + dataB.antiAging) / 2,
+            ageGain: (dataA.ageGain + dataB.ageGain) / 2
+        };
+
+        label = `${compounds[keyA].label} + ${compounds[keyB].label}`;
+    }
 
     renderAll(datas);
 }
 
-function renderScreeningCompartments() {
+function getSortedCompartments(datas) {
+    return compartments
+        .map(name => ({
+            name,
+            value: datas.score?.[name] ?? -Infinity
+        }))
+        .sort((a, b) => b.value - a.value);
+}
+
+function renderScreeningCompartments(datas) {
     const block = document.getElementById('compartments-block');
+
+    const sorted = getSortedCompartments(datas);
 
     let html = '<div class="table">';
 
-    compartments.forEach(name => {
-        const newName = screeningCompartmentsMap[name] || name;
+    sorted.forEach(item => {
+        const newName = screeningCompartmentsMap[item.name] || item.name;
 
         html += `
             <div class="row">
@@ -50,18 +85,20 @@ function renderScreeningCompartments() {
 function renderScreeningScore(datas) {
     const block = document.getElementById('score-block');
 
+    const sorted = getSortedCompartments(datas);
+
     let html = '<div class="table">';
 
-    compartments.forEach(name => {
-        const value = datas.score?.[name];
+    sorted.forEach(item => {
+        const value = item.value;
 
-        const color = value != null ? scoreColor(value) : '#eee';
+        const color = value !== -Infinity ? scoreColor(value) : '#eee';
         const sign = value >= 0 ? '+' : '';
 
         html += `
             <div class="row">
                 <div class="cell" style="background:${color}">
-                    ${sign}${value?.toFixed(2) ?? '-'}
+                    ${value !== -Infinity ? sign + value.toFixed(2) : '-'}
                 </div>
             </div>
         `;
@@ -72,7 +109,7 @@ function renderScreeningScore(datas) {
 }
 
 function renderAll(datas) {
-    renderScreeningCompartments();
+    renderScreeningCompartments(datas);
     renderScreeningScore(datas);
 }
 
