@@ -100,7 +100,7 @@
                                     <div id="score-value-b" class="score-number"></div>
                                 </div>
                                 <div class="age-gain">
-                                    <div class="age-label">Apparent Tissue Age Shift</div>
+                                    <div class="age-label">Equivalent Biological Age Shift</div>
                                     <div id="age-value-b" class="age-number"></div>
                                 </div>
                             </div>
@@ -108,14 +108,18 @@
                     </div>
                 </div>
 
-                <!-- Part 2: Heatmap -->
+                <!-- Part 2: Grid -->
                 <div class="results-part part-2">
-                    <h3 class="part-title">Selected readouts of longevity</h3>
+                    <h3 class="part-title">Selected hallmarks of aging and longevity</h3>
+                    <p class="subtitle">
+                        From <a href="https://doi.org/10.1016/j.cell.2022.11.001" target="_blank">Lopez-Otin et al., 2023</a>
+                    </p>
                     <div class="multi-metrics-grid">
                         <div id="compartments-block"></div>
                         <div id="heatmap-block"></div>
+                        <div id="score-block"></div>
+                        <div id="mechanism-block"></div>
                     </div>
-                    <script src="data.js"></script>     <!-- Tres imp pour appeler les data -->
                 </div>
 
                 <!-- Part 3: Radar -->
@@ -125,10 +129,19 @@
                         <img id="radarImage" src="radar/radar_background.png" alt="Radar plot">
                     </div>
                 </div>
+
+                <!-- Part 4: Optimal graph -->
+                <div class="results-part part-4">
+                    <h3 class="part-title">Optimal graph</h3>
+                    <div id="optimal-graph-container"></div>
+                        <div id="optimal-graph-block"></div>
+                        <div id="optimal-button-container"></div>
+                        <div id="optimal-graph-label" style="margin-top:10px; font-weight:bold;"></div>
+                </div>
             </div>
         </div>
     </div>
-
+    <script src="data.js"></script>     <!-- Tres imp pour appeler les data -->
     <script>window.useScoreHeatmap = true;</script>
     <script src="script.js"></script>
 </body>

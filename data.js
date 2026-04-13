@@ -87,7 +87,7 @@ const compounds = {
             }
         }
     },
-    anti_oxydant: {
+    antioxydant: {
         label: 'Anti-oxydant',
         datas: {
             heat: { 
@@ -152,7 +152,7 @@ const compounds = {
             }
         }
     },
-    anti_inflammatory: {
+    antiinflammatory: {
         label: 'Anti-inflammatory',
         datas: {
             heat: { 
@@ -282,7 +282,7 @@ const compounds = {
             }
         }
     },
-    glp1_agonist: {
+    glp1agonist: {
         label: 'GLP-1 agonist',
         datas: {
             heat: { 
@@ -347,7 +347,7 @@ const compounds = {
             }
         }
     },
-    botulinum_toxin: {
+    botulinumtoxin: {
         label: 'Botulinum toxin',
         datas: {
             heat: { 
@@ -415,9 +415,9 @@ const compounds = {
 };
 
 const combinationTemplates = {
-    caffeine_anti_oxidant: {
+    caffeine_antioxydant: {
         label: 'Caffeine + Anti-oxydant',
-        compounds: ["caffeine", "anti_oxidant"],
+        compounds: ["caffeine", "antioxydant"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.593236415,
@@ -441,9 +441,9 @@ const combinationTemplates = {
             ageGain: 4.1
         }
     },
-    caffeine_anti_inflammatory: {
+    caffeine_antiinflammatory: {
         label: 'Caffeine + Anti-inflammatory',
-        compounds: ["caffeine", "anti_inflammatory"],
+        compounds: ["caffeine", "antiinflammatory"],
         datas: {
             heat: {
                 'Nutrient-sensing': 1.274888827,
@@ -493,9 +493,9 @@ const combinationTemplates = {
             ageGain: 4.0
         }
     },
-    caffeine_glp1_agonist: {
+    caffeine_glp1agonist: {
         label: 'Caffeine + GLP-1 agonist',
-        compounds: ["caffeine", "glp1_agonist"],
+        compounds: ["caffeine", "glp1agonist"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.861099746,
@@ -519,9 +519,9 @@ const combinationTemplates = {
             ageGain: 6.2
         }
     },
-    caffeine_botulinum_toxin: {
+    caffeine_botulinumtoxin: {
         label: 'Caffeine + Botulinum toxin',
-        compounds: ["caffeine", "botulinum_toxin"],
+        compounds: ["caffeine", "botulinumtoxin"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.554641019,
@@ -545,9 +545,9 @@ const combinationTemplates = {
             ageGain: 1.9
         }
     },
-    anti_oxidant_anti_inflammatory: {
+    antioxydant_antiinflammatory: {
         label: 'Anti-oxydant + Anti-inflammatory',
-        compounds: ["anti_oxidant", "anti_inflammatory"],
+        compounds: ["antioxydant", "antiinflammatory"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.978300972,
@@ -571,9 +571,9 @@ const combinationTemplates = {
             ageGain: 6.8
         }
     },
-    anti_oxidant_soothing: {
+    antioxydant_soothing: {
         label: 'Anti-oxydant + Soothing',
-        compounds: ["anti_oxidant", "soothing"],
+        compounds: ["antioxydant", "soothing"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.384880449,
@@ -597,9 +597,9 @@ const combinationTemplates = {
             ageGain: 1.9
         }
     },
-    anti_oxidant_glp1_agonist: {
+    antioxydant_glp1agonist: {
         label: 'Anti-oxydant + GLP-1 agonist',
-        compounds: ["anti_oxidant", "glp1_agonist"],
+        compounds: ["antioxydant", "glp1agonist"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.526212528,
@@ -623,9 +623,9 @@ const combinationTemplates = {
             ageGain: 3.0
         }
     },
-    anti_oxidant_botulinum_toxin: {
+    antioxydant_botulinumtoxin: {
         label: 'Anti-oxydant + Botulinum toxin',
-        compounds: ["anti_oxidant", "botulinum_toxin"],
+        compounds: ["antioxydant", "botulinumtoxin"],
         datas: {
             heat: {
                 'Nutrient-sensing': -0.137397308,
@@ -649,9 +649,9 @@ const combinationTemplates = {
             ageGain: -1.6
         }
     },
-    anti_inflammatory_soothing: {
+    antiinflammatory_soothing: {
         label: 'Anti-inflammatory + Soothing',
-        compounds: ["anti_inflammatory", "soothing"],
+        compounds: ["antiinflammatory", "soothing"],
         datas: {
             heat: {
                 'Nutrient-sensing': 1.185593413,
@@ -675,9 +675,9 @@ const combinationTemplates = {
             ageGain: 6.6
         }
     },
-    anti_inflammatory_glp1_agonist: {
+    antiinflammatory_glp1agonist: {
         label: 'Anti-inflammatory + GLP-1 agonist',
-        compounds: ["anti_inflammatory", "glp1_agonist"],
+        compounds: ["antiinflammatory", "glp1agonist"],
         datas: {
             heat: {
                 'Nutrient-sensing': 1.246164304,
@@ -701,9 +701,9 @@ const combinationTemplates = {
             ageGain: 7.9
         }
     },
-    anti_inflammatory_botulinum_toxin: {
+    antiinflammatory_botulinumtoxin: {
         label: 'Anti-inflammatory + Botulinum toxin',
-        compounds: ["anti_inflammatory", "botulinum_toxin"],
+        compounds: ["antiinflammatory", "botulinumtoxin"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.939705576,
@@ -727,9 +727,9 @@ const combinationTemplates = {
             ageGain: 5.3
         }
     },
-    soothing_glp1_agonist: {
+    soothing_glp1agonist: {
         label: 'Soothing + GLP-1 agonist',
-        compounds: ["soothing", "glp1_agonist"],
+        compounds: ["soothing", "glp1agonist"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.733504968,
@@ -753,9 +753,9 @@ const combinationTemplates = {
             ageGain: 4.3
         }
     },
-    soothing_botulinum_toxin: {
+    soothing_botulinumtoxin: {
         label: 'Soothing + Botulinum toxin',
-        compounds: ["soothing", "botulinum_toxin"],
+        compounds: ["soothing", "botulinumtoxin"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.346285053,
@@ -779,9 +779,9 @@ const combinationTemplates = {
             ageGain: -1.0
         }
     },
-    glp1_agonist_botulinum_toxin: {
+    glp1agonist_botulinumtoxin: {
         label: 'GLP-1 agonist + Botulinum toxin',
-        compounds: ["glp1_agonist", "botulinum_toxin"],
+        compounds: ["glp1agonist", "botulinumtoxin"],
         datas: {
             heat: {
                 'Nutrient-sensing': 0.487617132,

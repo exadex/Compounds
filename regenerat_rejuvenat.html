@@ -108,7 +108,7 @@
                     </div>
                 </div>
 
-                <!-- Part 2: Heatmap -->
+                <!-- Part 2: Grid -->
                 <div class="results-part part-2">
                     <h3 class="part-title">Selected hallmarks of aging and longevity</h3>
                     <p class="subtitle">
@@ -120,8 +120,6 @@
                         <div id="score-block"></div>
                         <div id="mechanism-block"></div>
                     </div>
-                    <script src="data.js"></script>     <!-- Tres imp pour appeler les data -->
-
                 </div>
 
                 <!-- Part 3: Radar -->
@@ -131,10 +129,19 @@
                         <img id="radarImage" src="radar/radar_background.png" alt="Radar plot">
                     </div>
                 </div>
+
+                <!-- Part 4: Optimal graph -->
+                <div class="results-part part-4">
+                    <h3 class="part-title">Optimal graph</h3>
+                    <div id="optimal-graph-container"></div>
+                        <div id="optimal-graph-block"></div>
+                        <div id="optimal-button-container"></div>
+                        <div id="optimal-graph-label" style="margin-top:10px; font-weight:bold;"></div>
+                </div>
             </div>
         </div>
     </div>
-
+    <script src="data.js"></script>     <!-- Tres imp pour appeler les data -->
     <script>window.useScoreHeatmap = true;</script>
     <script src="script.js"></script>
 </body>
