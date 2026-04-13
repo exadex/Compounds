@@ -400,6 +400,11 @@ header h1 {
     box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
 
+.screening-page .multi-metrics-grid {
+    grid-template-columns: 1fr 1fr; /* solo 2 columnas */
+    padding: 32px;
+}
+
 .part-title {
     font-size: 1.4rem;
     font-weight: 600;

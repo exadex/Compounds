@@ -839,3 +839,5 @@ function renderOptimalGraph(datas, label, isSolo) {
 }
 
 buildButtons();
+
+console.log("common.js loaded");
