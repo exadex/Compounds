@@ -155,6 +155,19 @@ function runTestingAnimation(callback) {
     }, 2000);
 }
 
+function combineMaps(mapA = {}, mapB = {}) {
+    const result = {};
+    const keys = new Set([...Object.keys(mapA), ...Object.keys(mapB)]);
+
+    for (const key of keys) {
+        const a = mapA[key] ?? 0;
+        const b = mapB[key] ?? 0;
+        result[key] = (a + b) / 2;
+    }
+
+    return result;
+}
+
 function renderCombination(keyA, keyB) {
     const comboKey = `${keyA}_${keyB}`;
     const comboKeyReverse = `${keyB}_${keyA}`;
@@ -170,8 +183,13 @@ function renderCombination(keyA, keyB) {
         comboLabel = `${compounds[keyA].label} + ${compounds[keyB].label}`;
         comboDatas = {
             heat: combineMaps(dataA.heat, dataB.heat),
+
+            score: combineMaps(dataA.score || {}, dataB.score || {}),
+
             antiAging: (dataA.antiAging + dataB.antiAging) / 2,
-            ageGain: (dataA.ageGain + dataB.ageGain) / 2
+            ageGain: (dataA.ageGain + dataB.ageGain) / 2,
+
+            radar: combineMaps(dataA.radar || {}, dataB.radar || {}),
         };
     }
 
@@ -512,27 +530,27 @@ function updateRadarImage(compoundName) {
     const img = document.getElementById("radarImage");
 
     const radarImages = {
-        caffeine: "radar/radar_caf.png",
-        anti_oxidant: "radar/radar_nac.png",
-        anti_inflammatory: "radar/radar_dex.png",
-        soothing: "radar/radar_enox.png",
-        glp1_agonist: "radar/radar_lira.png",
-        'Botox Injected': "radar/radar_botox.png",
+        Caffeine: "radar/radar_caf.png",
+        'Anti-oxydant': "radar/radar_nac.png",
+        'Anti-inflammatory': "radar/radar_dex.png",
+        Soothing: "radar/radar_enox.png",
+        'GLP-1 agonist': "radar/radar_lira.png",
+        'Botulinum toxin': "radar/radar_botox.png",
         'Caffeine + Anti-oxydant': "radar/radar_caf_nac.png",
-        'Caffeine + Anti-inflammatory 1': "radar/radar_caf_dex.png",
-        'Caffeine + Anti-inflammatory 2': "radar/radar_caf_enox.png",
-        'Caffeine + GLP1-agonist': "radar/radar_caf_lira.png",
-        'Caffeine + Botox Injected': "radar/radar_caf_botox.png",
-        'Anti-oxydant + Anti-inflammatory 1': "radar/radar_nac_dex.png",
-        'Anti-oxydant + Anti-inflammatory 2': "radar/radar_nac_enox.png",
-        'Anti-oxydant + GLP1-agonist': "radar/radar_nac_lira.png",
-        'Anti-oxydant + Botox Injected': "radar/radar_nac_botox.png",
-        'Anti-inflammatory 1 + Anti-inflammatory 2': "radar/radar_dex_enox.png",
-        'Anti-inflammatory 1 + GLP1-agonist': "radar/radar_dex_lira.png",
-        'Anti-inflammatory 1 + Botox Injected': "radar/radar_dex_botox.png",
-        'Anti-inflammatory 2 + GLP1-agonist': "radar/radar_enox_lira.png",
-        'Anti-inflammatory 2 + Botox Injected': "radar/radar_enox_botox.png",
-        'GLP1-agonist + Botox Injected': "radar/radar_lira_botox.png"
+        'Caffeine + Anti-inflammatory': "radar/radar_caf_dex.png",
+        'Caffeine + Soothing': "radar/radar_caf_enox.png",
+        'Caffeine + GLP-1 agonist': "radar/radar_caf_lira.png",
+        'Caffeine + Botulinum toxin': "radar/radar_caf_botox.png",
+        'Anti-oxydant + Anti-inflammatory': "radar/radar_nac_dex.png",
+        'Anti-oxydant + Soothing': "radar/radar_nac_enox.png",
+        'Anti-oxydant + GLP-1 agonist': "radar/radar_nac_lira.png",
+        'Anti-oxydant + Botulinum toxin': "radar/radar_nac_botox.png",
+        'Anti-inflammatory + Soothing': "radar/radar_dex_enox.png",
+        'Anti-inflammatory + GLP-1 agonist': "radar/radar_dex_lira.png",
+        'Anti-inflammatory + Botulinum toxin': "radar/radar_dex_botox.png",
+        'Soothing + GLP-1 agonist': "radar/radar_enox_lira.png",
+        'Soothing + Botulinum toxin': "radar/radar_enox_botox.png",
+        'GLP-1 agonist + Botulinum toxin': "radar/radar_lira_botox.png"
     };
 
     img.src = radarImages[compoundName] || "radar/radar_background.png";

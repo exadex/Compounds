@@ -87,7 +87,7 @@ const compounds = {
             }
         }
     },
-    anti_oxidant: {
+    anti_oxydant: {
         label: 'Anti-oxydant',
         datas: {
             heat: { 
