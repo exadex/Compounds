@@ -95,10 +95,15 @@ function renderScreeningScore(datas) {
         const color = value !== -Infinity ? scoreColor(value) : '#eee';
         const sign = value >= 0 ? '+' : '';
 
+        const displayValue =
+            value !== -Infinity
+                ? `${sign}${value.toFixed(2)}%`
+                : '-';
+
         html += `
             <div class="row">
                 <div class="cell" style="background:${color}">
-                    ${value !== -Infinity ? sign + value.toFixed(2) : '-'}
+                    ${displayValue}
                 </div>
             </div>
         `;
