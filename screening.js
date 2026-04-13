@@ -8,6 +8,26 @@ const screeningCompartmentsMap = {
     "Vascular/Lymphatic Flow": "Vascular flow and lymphatic drainage"
 };
 
+function renderCompound(key) {
+    const { datas, label } = compounds[key];
+
+    updateRadarImage(label);        // en esta parte, las funciones que salgan aqui es lo que aparece en la pagina web
+    renderAll(datas);
+
+    renderOptimalGraph(datas, label, true); // idem
+}
+
+function renderCombination(keyA, keyB) {
+    const dataA = compounds[keyA].datas;
+    const dataB = compounds[keyB].datas;
+
+    const datas = {
+        score: combineMaps(dataA.score || {}, dataB.score || {})
+    };
+
+    renderAll(datas);
+}
+
 function renderScreeningCompartments() {
     const block = document.getElementById('compartments-block');
 
