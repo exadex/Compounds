@@ -97,7 +97,7 @@ function renderScreeningScore(datas) {
 
         const displayValue =
             value !== -Infinity
-                ? `${sign}${value.toFixed(2)}%`
+                ? `${sign}${Math.round(value)}%`
                 : '-';
 
         html += `

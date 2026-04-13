@@ -494,7 +494,7 @@ function renderScore(datas) {
         html += `
             <div class="row">
                 <div class="cell" style="background:${color}">
-                    ${sign}${value?.toFixed(2) ?? '-'}
+                    ${sign}${Math.round(value) ?? '-'}%
                 </div>
             </div>
         `;
