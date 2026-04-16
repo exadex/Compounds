@@ -117,18 +117,62 @@ function renderScore(datas) {
 
 function getMechanismText(value, compartment) {
 
-    if (value >= 75) return `Strong beneficial effect on ${compartment}`;
-    if (value >= 50) return `Good positive modulation of ${compartment}`;
-    if (value >= 25) return `Moderate improvement in ${compartment}`;
-    if (value > 0)   return `Mild positive effect on ${compartment}`;
+        let direction;
 
-    if (value === 0) return `No detectable effect on ${compartment}`;
+        if (value >= -30 && value <= 30) {
+            direction = "neutral";
+        } else if (value > 30) {
+            direction = "positive";
+        } else {
+            direction = "negative";
+        }
 
-    if (value > -25) return `Mild negative modulation of ${compartment}`;
-    if (value > -50) return `Moderate suppression of ${compartment}`;
-    if (value > -75) return `Strong inhibitory effect on ${compartment}`;
+    const interpretations = {
 
-    return `Severe suppression of ${compartment}`;
+        "Nutrient-sensing": {
+            positive: "Improved metabolic sensing and lipid handling capacity",
+            negative: "Impaired metabolic regulation and nutrient sensing",
+            neutral: "No significant modulation of metabolic sensing"
+        },
+
+        "Stem cell capacity": {
+            positive: "Enhanced progenitor cell activity and regenerative potential",
+            negative: "Reduced stem cell function and regenerative capacity",
+            neutral: "No detectable effect on stem cell activity"
+        },
+
+        "Cell-ECM communication": {
+            positive: "Improved extracellular matrix organization and tissue integrity",
+            negative: "Altered ECM remodeling and potential fibrosis imbalance",
+            neutral: "No significant change in ECM interactions"
+        },
+
+        "Mitochondrial function": {
+            positive: "Enhanced mitochondrial activity and energy metabolism",
+            negative: "Mitochondrial dysfunction and reduced metabolic efficiency",
+            neutral: "No detectable effect on mitochondrial function"
+        },
+
+        "Chronic inflammation": {
+            positive: "Reduced inflammatory tone and improved tissue homeostasis",
+            negative: "Increased inflammatory activation and stress signaling",
+            neutral: "No significant modulation of inflammatory status"
+        },
+
+        "Neural communication": {
+            positive: "Enhanced neuro-adipose signaling and tissue responsiveness",
+            negative: "Impaired neural communication within adipose tissue",
+            neutral: "No detectable effect on neural signaling"
+        },
+
+        "Vascular/Lymphatic Flow": {
+            positive: "Improved vascularization and fluid exchange capacity",
+            negative: "Reduced vascular network functionality and flow",
+            neutral: "No significant change in vascular dynamics"
+        }
+    };
+
+    return interpretations[compartment][direction];
 }
 
 function renderMechanism(datas) {

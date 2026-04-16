@@ -4,11 +4,18 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+}
+
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #f5f7fa 0%, #f6b223 100%);  /* background color*/
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 40px 0px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 /* Logo pequeño arriba a la izquierda */
@@ -113,6 +120,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    flex: 1;
 }
 
 header {
@@ -631,6 +639,83 @@ header h1 {
 .optimal-btn.optimal-active:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 22px rgba(46, 53, 47, 0.3);
+}
+
+/* Part 5: References */
+.part-5 {
+    margin-top: 24px;
+    background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%);
+    border-radius: 18px;
+    padding: 28px 34px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    position: relative;
+    overflow: hidden;
+}
+
+/* REFERENCES */
+.references-section {
+    background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+    margin-top: 60px;
+    padding: 60px 0 70px 0;
+    border-top: 1px solid #e5e7eb;
+    width: 100vw;                 /* ocupa toda la pantalla */
+    margin-left: calc(50% - 50vw); /* rompe el centrado del container */
+}
+
+/* contenido centrado */
+.references-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+}
+
+/* línea superior elegante */
+.references-inner::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 32px;
+    width: 80px;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #52c09d, #00ad76);
+}
+
+/* título */
+.references-section .part-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 20px;
+}
+
+/* texto */
+#references-block {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #4b5563;
+    max-width: 850px;
+}
+
+/* párrafos */
+#references-block p {
+    margin: 12px 0;
+}
+
+/* subtítulos */
+#references-block strong {
+    color: #111827;
+    font-weight: 600;
+}
+
+/* separador suave */
+#references-block hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d1d5db, transparent);
+    margin: 20px 0;
 }
 
 @media (max-width: 768px) {
