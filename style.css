@@ -693,7 +693,7 @@ header h1 {
 
 /* texto */
 #references-block {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.7;
     color: #4b5563;
     max-width: 850px;
@@ -716,6 +716,71 @@ header h1 {
     height: 1px;
     background: linear-gradient(to right, transparent, #d1d5db, transparent);
     margin: 20px 0;
+}
+
+/* =========================
+   REFERENCES LIST (Zotero style)
+========================= */
+
+.reference-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+/* cada paper */
+.ref-item {
+    border-radius: 14px;
+    padding: 10px 12px;
+    transition: all 0.25s ease;
+}
+
+
+/* header: authors + year */
+.ref-header {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    margin-bottom: 2px;
+}
+
+.ref-authors {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 0.95rem;
+}
+
+.ref-year {
+    color: #6b7280;
+    font-size: 0.8rem;
+}
+
+/* journal */
+.ref-journal {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #4b5563;
+    margin-bottom: 4px;
+}
+
+/* insight */
+.ref-insight {
+    font-size: 0.85rem;
+    color: #374151;
+    line-height: 1.3;
+}
+
+/* pequeño highlight opcional */
+.ref-item::before {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 28px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #52c09d, #00ad76);
+    margin-bottom: 6px;
+    opacity: 0.6;
 }
 
 @media (max-width: 768px) {
