@@ -203,7 +203,7 @@ function getMechanismText(value, compartment) {
             neutral: "No detectable effect on mitochondrial function"
         },
 
-        "Chronic inflammation": {
+        "Chronic inflammation control": {
             positive: "Reduced inflammatory tone and improved tissue homeostasis",
             negative: "Increased inflammatory activation and stress signaling",
             neutral: "No significant modulation of inflammatory status"

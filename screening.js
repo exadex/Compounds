@@ -3,7 +3,7 @@ const screeningCompartmentsMap = {
     "Stem cell capacity": "Stem cell regeneration",
     "Cell-ECM communication": "Collagen synthesis and fibroblasts",
     "Mitochondrial function": "Energy and mitochondria",
-    "Chronic inflammation": "Inflammaging",
+    "Chronic inflammation control": "Inflammaging protection",
     "Neural communication": "Neural communication",
     "Vascular/Lymphatic Flow": "Vascular flow and lymphatic drainage"
 };

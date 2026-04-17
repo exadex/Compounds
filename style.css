@@ -745,7 +745,6 @@ header h1 {
 .part-5 {
     margin-top: 24px;
     background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%);
-    border-radius: 18px;
     padding: 28px 34px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(0, 0, 0, 0.04);
@@ -780,7 +779,7 @@ header h1 {
     width: 80px;
     height: 4px;
     border-radius: 4px;
-    background: linear-gradient(90deg, #52c09d, #00ad76);
+    background: linear-gradient(90deg, #F5CD3B, #f6b223 );
 }
 
 /* título */
@@ -878,7 +877,7 @@ header h1 {
     height: 2px;
     width: 28px;
     border-radius: 2px;
-    background: linear-gradient(90deg, #52c09d, #00ad76);
+    background: linear-gradient(90deg, #F5CD3B , #E8C523  );
     margin-bottom: 6px;
     opacity: 0.6;
 }
