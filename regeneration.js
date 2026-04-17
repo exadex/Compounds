@@ -434,11 +434,11 @@ function renderOptimalGraphRegeneration(datas, label, isSolo) {
 
     if (isSolo && selectedCompounds.length === 1) {
         buttonContainer.innerHTML = `
-            <button class="optimal-btn">OPTIMAL</button>
+            <button class="optimal-btn">OPTIMAL COMBINATION</button>
         `;
         const btn = buttonContainer.querySelector('.optimal-btn');
 
-        btn.textContent = isOptimalMode ? "NORMAL" : "OPTIMAL";
+        btn.textContent = isOptimalMode ? "SOLO COMPOUND" : "OPTIMAL COMBINATION";
         btn.classList.remove('optimal-active');
         btn.classList.toggle('optimal-active', isOptimalMode);
 

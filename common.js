@@ -48,13 +48,11 @@ function handleSpecialRoute(route) {
     selectedCompounds = [];
     activeSelection = 'combo';
 
+    updateActiveButtons();
+
     // ocultar resultados
     const panels = document.getElementById("panels");
     if (panels) panels.style.display = "none";
-
-    // hint
-    const hint = document.getElementById("select-hint");
-    if (hint) hint.style.display = "none";
 
     // intro video
     const videoDiv = document.querySelector(".intro-video");
