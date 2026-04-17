@@ -566,7 +566,7 @@ header h1 {
     box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     display: flex;
     flex-direction: column;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
 }
 
 .optimal-graph-card {
@@ -694,6 +694,51 @@ header h1 {
 .optimal-btn.optimal-active:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 22px rgba(46, 53, 47, 0.3);
+}
+
+/* Part 6: Biological signals */
+.part-6 {
+    margin-top: 20px;
+    margin-bottom: 60px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.bio-videos-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.bio-video-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.bio-video-title {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: #f6b223;
+    padding: 8px 12px;
+    border-radius: 999px;
+    display: inline-block;
+    align-self: center;
+    box-shadow: 0 4px 10px rgba(246, 178, 35, 0.25);
+    letter-spacing: 0.2px;
+}
+
+.bio-video {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 
 /* Part 5: References */

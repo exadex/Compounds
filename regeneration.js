@@ -261,6 +261,7 @@ function renderAll(datas) {
     renderHeatmap(datas);
     renderScore(datas);
     renderMechanism(datas);
+    renderTopBiologicalSignals(datas);
 }
 
 function renderOptimalGraphRegeneration(datas, label, isSolo) {

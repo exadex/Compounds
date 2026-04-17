@@ -136,6 +136,7 @@ function renderScreeningScore(datas) {
 function renderAll(datas) {
     renderScreeningCompartments(datas);
     renderScreeningScore(datas);
+    renderTopBiologicalSignals(datas);
 }
 
 function renderOptimalGraphScreening(datas, label, isSolo) {

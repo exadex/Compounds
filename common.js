@@ -25,6 +25,7 @@ function buildButtons() {
     list.innerHTML = '';
     Object.keys(compounds).forEach(key => {     //compounds button
         const btn = document.createElement('button');
+        btn.type = "button";
         btn.textContent = compounds[key].label;
         btn.className = 'compound-btn';
         btn.onclick = () => handleCompoundSelection(key, btn);
@@ -32,6 +33,7 @@ function buildButtons() {
     });
     specialButtons.forEach(item => {    // test your compound button
         const btn = document.createElement('button');
+        btn.type = "button";
         btn.textContent = item.label;
         btn.className = 'compound-btn special-btn'; // styling distinto
         btn.onclick = () => handleSpecialRoute(item.route);
@@ -528,6 +530,49 @@ function resetPart4() {
     if (labelContainer) labelContainer.textContent = '';
 
     isOptimalMode = false;
+}
+
+const pathwayVideoMap = {
+    "Cell-ECM communication": "videos/cellECMcomm.mp4",
+    "Chronic inflammation": "videos/inflammaging.mp4",
+    "Nutrient-sensing": "videos/nutrientmitochondria.mp4",
+    "Mitochondrial function": "videos/nutrientmitochondria.mp4",
+    "Vascular/Lymphatic Flow": "videos/vascular.mp4",
+};
+
+function renderTopBiologicalSignals(datas) {
+    const container = document.getElementById("bio-videos-container");
+    if (!container) return;
+
+    const score = datas?.score || datas?.heat;
+    if (!score) {
+        container.innerHTML = "";
+        return;
+    }
+
+    const filteredEntries = Object.entries(score)
+        .filter(([key]) => pathwayVideoMap[key]) // 👈 SOLO LOS QUE TIENEN VIDEO
+        .map(([key, value]) => ({
+            key,
+            value: value ?? -999
+        }));
+
+    const top2 = filteredEntries
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 2);
+
+    container.innerHTML = top2.map(item => {
+        const video = pathwayVideoMap[item.key];
+
+        return `
+            <div class="bio-video-card">
+                <video class="bio-video" autoplay muted loop playsinline>
+                    <source src="${video}" type="video/mp4">
+                </video>
+                <div class="bio-video-title">${item.key}</div>
+            </div>
+        `;
+    }).join("");
 }
 
 buildButtons();
