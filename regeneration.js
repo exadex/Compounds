@@ -1,3 +1,39 @@
+function renderCompound(key) {
+    const { datas, label } = compounds[key];
+    
+    // Hide side cards for single compound
+    document.getElementById('score-card-a').style.display = 'none';
+    document.getElementById('score-card-b').style.display = 'none';
+    document.getElementById('score-card-combo').style.display = 'block';
+    document.getElementById('score-card-combo').classList.remove('inactive');
+    document.getElementById('score-card-combo').classList.add('active');
+    
+    renderCompoundFromData(label, datas, 'combo');
+
+    if (selectedCompounds.length === 1) {
+    renderOptimalGraphRegeneration(datas, label, true);
+    } else {
+        // 🔴 IMPORTANTE: ocultar y limpiar sección 4
+        const graphBlock = document.getElementById('optimal-graph-block');
+        const buttonContainer = document.getElementById('optimal-button-container');
+        const labelContainer = document.getElementById('optimal-graph-label');
+
+        if (graphBlock) graphBlock.innerHTML = '';
+        if (buttonContainer) buttonContainer.innerHTML = '';
+        if (labelContainer) labelContainer.textContent = '';
+    }
+
+    if (selectedCompounds.length === 1) {
+        const part4 = document.querySelector('.results-part.part-4');
+        if (part4) part4.style.display = 'block';
+
+        renderOptimalGraphRegeneration(datas, label, true);
+    } else {
+        resetPart4();
+    }
+
+}
+
 function renderCompartmentTable(data, mode, targetId) {
     const block = document.getElementById(targetId);
 
@@ -65,7 +101,7 @@ function renderHeatmap(datas) {
 
     let html = `<div class="table">
                     <div class="row header">
-                        <div class="cell">log2FC</div>
+                        <div class="cell">Fold Change</div>
                     </div>
                 `;
 
@@ -99,13 +135,27 @@ function renderScore(datas) {
 
     compartments.forEach(name => {
         const value = datas.score?.[name];
-        const color = value != null ? scoreColor(value) : '#eee';
-        const sign = value >= 0 ? '+' : '';
+
+        let displayText = '-';
+        let style = '';
+
+        if (value != null) {
+            if (value >= -20 && value <= 20) {
+                // NEUTRAL → sin fondo
+                displayText = 'neutral';
+                style = 'background:#e5e7eb; color:#111;'
+            } else {
+                const sign = value >= 0 ? '+' : '';
+                displayText = `${sign}${Math.round(value)}%`;
+                const color = scoreColor(value);
+                style = `background:${color};`;
+            }
+        }
 
         html += `
             <div class="row">
-                <div class="cell" style="background:${color}">
-                    ${sign}${Math.round(value) ?? '-'}%
+                <div class="cell" style="${style}">
+                    ${displayText}
                 </div>
             </div>
         `;
@@ -213,12 +263,12 @@ function renderAll(datas) {
     renderMechanism(datas);
 }
 
-function renderOptimalGraph(datas, label, isSolo) {
+function renderOptimalGraphRegeneration(datas, label, isSolo) {
     const graphBlock = document.getElementById('optimal-graph-block');
     if (!graphBlock) return;
 
     // 🔴 BLOQUEO GLOBAL: si hay más de 1 compuesto, no mostrar nunca
-    if (selectedCompounds.length !== 1) {
+    if (!datas || !Array.isArray(Object.keys(datas.score || {}))) {
         graphBlock.innerHTML = '';
         const buttonContainer = document.getElementById('optimal-button-container');
         const labelContainer = document.getElementById('optimal-graph-label');
@@ -405,11 +455,11 @@ function renderOptimalGraph(datas, label, isSolo) {
                         alert("No optimal combination found");
                         return;
                     }
-                    renderOptimalGraph(bestCombo.datas, bestCombo.label, true);
+                    renderOptimalGraphRegeneration(bestCombo.datas, bestCombo.label, true);
                     labelContainer.textContent = `Optimal Combination: ${bestCombo.label}`;
                 } else {
                     // Modo NORMAL: solo el compuesto original
-                    renderOptimalGraph(compounds[compoundKey].datas, compoundKey, true);
+                    renderOptimalGraphRegeneration(compounds[compoundKey].datas, compoundKey, true);
                     labelContainer.textContent = `Compound: ${compounds[compoundKey].label}`;
                 }
 

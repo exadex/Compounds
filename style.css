@@ -34,86 +34,42 @@ body {
 }
 
 /* Botones de contacto y de la pagina EFFECTS */
-.main-header {
-    display: flex;
-    justify-content: space-between; /* logo a la izquierda, botón a la derecha */
-    align-items: center;
-    padding: 20px;
-    position: relative; /* para que elementos absolutos dentro funcionen si los necesitas */
-}
-
-.header-btn1 {
-    position: absolute;   /* clave */
-    top: 20px;            /* distancia desde arriba */
-    right: 20px;          /* distancia desde la derecha */
-    
-    
-    padding: 8px 16px;
-    background-color: #BD7A31;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.header-btn1:hover {
-    background-color: #B92231 ;
-    transform: translateY(-2px);
-}
-
-.home-btn {
+.header-buttons-container {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 45px;
-    height: 45px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* botón base */
+.nav-header-btn {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: #2C2C2C;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding: 10px 14px;
+    border-radius: 10px;
+
     text-decoration: none;
-    background: transparent;   /* 🔥 sin fondo */
-    border: none;
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.home-btn svg {
-    width: 50%;     /* tamano de la casa, los dos */
-    height: 50%;
-}
-
-.home-btn:hover {
-    transform: translateY(-3px) scale(1.08);
-    color: #B92231; /* 🔥 cambia color al hover */
-    filter: drop-shadow(0 6px 10px rgba(185, 34, 49, 0.25));
-}
-
-.website-btn {
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: #2C2C2C;
-    text-decoration: none;
+    font-weight: 600;
+
     background: transparent;
-    cursor: pointer;
     transition: all 0.25s ease;
 }
 
-.website-btn svg {
-    width: 50%;     /* tamano de la casa, los dos */
-    height: 50%;
+/* texto home y website */
+.btn-text {
+    font-size: 0.95rem;
+    text-align: right;
 }
 
-.website-btn:hover {
-    transform: translateY(-3px) scale(1.08);
-    color: #B92231; /* 🔥 cambia color al hover */
+.nav-header-btn:hover {
+    transform: translateY(-2px);
+    color: #B92231;
     filter: drop-shadow(0 6px 10px rgba(185, 34, 49, 0.25));
 }
 
@@ -148,7 +104,7 @@ header h1 {
 }
 
 .subtitle {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     color: #000000;
     margin-top: 3px;
     letter-spacing: 0.2px;
@@ -225,10 +181,9 @@ header h1 {
 
 .compounds-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
     margin-bottom: 40px;
-    justify-items: center;
 }
 
 .compound-btn {
@@ -242,6 +197,7 @@ header h1 {
     color: #333;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    width: 100%;
 }
 
 .compound-btn:hover {
@@ -260,10 +216,10 @@ header h1 {
 
 .hint-box {
     text-align: center;
-    padding: 24px;
+    padding: 4px;
     font-size: 1.1rem;
     color: #999;
-    margin-bottom: 4px;
+    margin-bottom: 30px;
 }
 
 .results-section {
@@ -285,6 +241,84 @@ header h1 {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Test your compound button */
+.special-btn {
+    background: linear-gradient(135deg, #B92231, #f6b223);
+    color: white;
+    border: none;
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(185, 34, 49, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease; /* importante */
+    grid-column: 1 / -1;   /* ocupa toda la fila */
+    justify-self: center;  /* se centra */
+    max-width: 180px;      /* controla tamaño */
+}
+
+.special-btn:hover {
+    background: linear-gradient(135deg, #B92231, #f6b223);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(185, 34, 49, 0.45);
+}
+
+.contact-section {
+    margin-top: 40px;
+    padding: 34px;
+    background: linear-gradient(180deg, #ffffff, #fbfbfb);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
+    animation: fadeIn 0.4s ease-out;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #111;
+}
+
+.contact-subtitle {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.contact-benefits {
+    text-align: left;
+    display: inline-block;
+    margin: 20px 0;
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.8;
+}
+
+.contact-cta {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #444;
+}
+
+.contact-button {
+    margin-top: 20px;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #B92231, #f6b223);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(185, 34, 49, 0.25);
+    transition: all 0.25s ease;
+}
+
+.contact-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(185, 34, 49, 0.35);
 }
 
 /* Part 1: Score Card */

@@ -1,6 +1,14 @@
 let selectedCompounds = [];
 let activeSelection = 'combo'; // 'a', 'combo', 'b'
 
+const specialButtons = [
+    {
+        key: "test_compound",
+        label: "Test your compound",
+        route: "test"
+    }
+];
+
 function normalizeKey(k) {
     return (k || '').trim().toLowerCase().replace(/\s+/g, '_');
 }
@@ -15,16 +23,60 @@ function comboKey(a, b) {
 function buildButtons() {
     const list = document.getElementById('compounds-list');
     list.innerHTML = '';
-    Object.keys(compounds).forEach(key => {
+    Object.keys(compounds).forEach(key => {     //compounds button
         const btn = document.createElement('button');
         btn.textContent = compounds[key].label;
         btn.className = 'compound-btn';
         btn.onclick = () => handleCompoundSelection(key, btn);
         list.appendChild(btn);
     });
+    specialButtons.forEach(item => {    // test your compound button
+        const btn = document.createElement('button');
+        btn.textContent = item.label;
+        btn.className = 'compound-btn special-btn'; // styling distinto
+        btn.onclick = () => handleSpecialRoute(item.route);
+        list.appendChild(btn);
+    });
+}
+
+// test your compound button route handler
+function handleSpecialRoute(route) {
+    console.log("route:", route);
+
+    if (route !== "test") return;
+
+    selectedCompounds = [];
+    activeSelection = 'combo';
+
+    // ocultar resultados
+    const panels = document.getElementById("panels");
+    if (panels) panels.style.display = "none";
+
+    // hint
+    const hint = document.getElementById("select-hint");
+    if (hint) hint.style.display = "none";
+
+    // intro video
+    const videoDiv = document.querySelector(".intro-video");
+    if (videoDiv) videoDiv.style.display = "none";
+
+    const section = document.getElementById("contact-section");
+
+    if (!section) {
+        console.error("contact-section NOT FOUND in DOM");
+        return;
+    }
+
+    section.style.display = "block";
+
+    setTimeout(() => {
+        section.scrollIntoView({ behavior: "smooth" });
+    }, 50);
 }
 
 function handleCompoundSelection(key, button) {
+    resetPart4();
+    document.getElementById("contact-section").style.display = "none";
     const idx = selectedCompounds.indexOf(key);
 
     if (idx !== -1) {
@@ -58,14 +110,11 @@ function updateActiveButtons() {
 
 function renderSelected() {
     if (selectedCompounds.length === 0) {
-        document.getElementById('select-hint').style.display = 'block';
         document.getElementById('panels').style.display = 'none';
         return;
     }
 
     // Ocultar hint y video al hacer click
-    document.getElementById('select-hint').style.display = 'none';
-    
     const videoDiv = document.querySelector('.intro-video');
     const videoEl = videoDiv ? videoDiv.querySelector('video') : null;
     if (videoEl) {
@@ -223,6 +272,9 @@ function renderCombination(keyA, keyB) {
     document.getElementById('score-card-b').onclick = () => setActiveSelection('b');
     document.getElementById('score-card-combo').onclick = () => setActiveSelection('combo');
 
+    // Hide optimal graph
+    resetPart4();
+
     // Update active classes
     updateActiveCardClasses();
 }
@@ -267,6 +319,7 @@ function setActiveSelection(selection) {
         }
         updateRadarImage(label);
         renderAll(datas);
+        isOptimalMode = false;
     }
 }
 
@@ -286,31 +339,7 @@ function updateActiveCardClasses() {
     });
 }
 
-function renderCompound(key) {
-    const { datas, label } = compounds[key];
-    
-    // Hide side cards for single compound
-    document.getElementById('score-card-a').style.display = 'none';
-    document.getElementById('score-card-b').style.display = 'none';
-    document.getElementById('score-card-combo').style.display = 'block';
-    document.getElementById('score-card-combo').classList.remove('inactive');
-    document.getElementById('score-card-combo').classList.add('active');
-    
-    renderCompoundFromData(label, datas, 'combo');
 
-    if (selectedCompounds.length === 1) {
-    renderOptimalGraph(datas, label, true);
-    } else {
-        // 🔴 IMPORTANTE: ocultar y limpiar sección 4
-        const graphBlock = document.getElementById('optimal-graph-block');
-        const buttonContainer = document.getElementById('optimal-button-container');
-        const labelContainer = document.getElementById('optimal-graph-label');
-
-        if (graphBlock) graphBlock.innerHTML = '';
-        if (buttonContainer) buttonContainer.innerHTML = '';
-        if (labelContainer) labelContainer.textContent = '';
-    }
-}
 
 function renderCompoundFromData(label, datas, suffix = '') {
     const nameEl = document.getElementById(`compound-name${suffix ? '-' + suffix : ''}`);
@@ -487,7 +516,21 @@ function getBestCombination(selectedCompound) {
     return bestCombo;
 }
 
+function resetPart4() {
+    const part4 = document.querySelector('.results-part.part-4');
+    const graphBlock = document.getElementById('optimal-graph-block');
+    const buttonContainer = document.getElementById('optimal-button-container');
+    const labelContainer = document.getElementById('optimal-graph-label');
 
+    // 🔴 ocultar TODO el bloque 4 entero
+    if (part4) part4.style.display = 'none';
+
+    if (graphBlock) graphBlock.innerHTML = '';
+    if (buttonContainer) buttonContainer.innerHTML = '';
+    if (labelContainer) labelContainer.textContent = '';
+
+    isOptimalMode = false;
+}
 
 buildButtons();
 

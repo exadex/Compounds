@@ -14,7 +14,27 @@ function renderCompound(key) {
     updateRadarImage(label);        // en esta parte, las funciones que salgan aqui es lo que aparece en la pagina web
     renderAll(datas);
 
-    renderOptimalGraph(datas, label, true); // idem
+    if (selectedCompounds.length === 1) {
+    renderOptimalGraphScreening(datas, label, true);
+    } else {
+        // 🔴 IMPORTANTE: ocultar y limpiar sección 4
+        const graphBlock = document.getElementById('optimal-graph-block');
+        const buttonContainer = document.getElementById('optimal-button-container');
+        const labelContainer = document.getElementById('optimal-graph-label');
+
+        if (graphBlock) graphBlock.innerHTML = '';
+        if (buttonContainer) buttonContainer.innerHTML = '';
+        if (labelContainer) labelContainer.textContent = '';
+    }
+
+    if (selectedCompounds.length === 1) {
+        const part4 = document.querySelector('.results-part.part-4');
+        if (part4) part4.style.display = 'block';
+
+        renderOptimalGraphScreening(datas, label, true);
+    } else {
+        resetPart4();
+    }
 }
 
 function renderCombination(keyA, keyB) {
@@ -118,12 +138,12 @@ function renderAll(datas) {
     renderScreeningScore(datas);
 }
 
-function renderOptimalGraph(datas, label, isSolo) {
+function renderOptimalGraphScreening(datas, label, isSolo) {
     const graphBlock = document.getElementById('optimal-graph-block');
     if (!graphBlock) return;
 
     // 🔴 BLOQUEO GLOBAL: si hay más de 1 compuesto, no mostrar nunca
-    if (selectedCompounds.length !== 1) {
+    if (!datas || !Array.isArray(Object.keys(datas.score || {}))) {
         graphBlock.innerHTML = '';
         const buttonContainer = document.getElementById('optimal-button-container');
         const labelContainer = document.getElementById('optimal-graph-label');
@@ -155,51 +175,69 @@ function renderOptimalGraph(datas, label, isSolo) {
 
     const points = Object.keys(score).map(name => {
         const raw = score[name];
-        const status = raw === null || raw === undefined ? 'empty' : getStatus(raw);
-        const pct = raw === null || raw === undefined ? 0 : Math.max(0, Math.min(100, raw));
+        const pct = raw === null || raw === undefined
+            ? 0
+            : Math.max(-200, Math.min(200, raw));
+
+        let color = '#eee';
+
+        if (raw !== null && raw !== undefined) {
+            if (pct > -100 && pct <= -30) color = '#F44336';
+            else if (pct > -30 && pct <= 30) color = '#FF9800';
+            else if (pct > 30 && pct <= 60) color = '#FFEB3B';
+            else if (pct > 60 && pct <= 100) color = '#52c09d';
+            else color = '#00ad76';
+        }
+
         return {
             name,
             raw,
-            status,
             pct,
-            color: colorMap[status]
+            color
         };
     });
 
-    const order = { empty: 0, critical: 1, caution: 2, borderline: 3, optimal: 4 };
-    points.sort((a, b) => {
-        if (order[a.status] !== order[b.status]) return order[a.status] - order[b.status];
-        return b.pct - a.pct;
-    });
+    points.sort((a, b) => b.pct - a.pct);
 
     const svgWidth = 800;
     const svgHeight = 600;
     const padding = 48;
-    const bottomMargin = 180;
+    const bottomMargin = 120;
     const pointMargin = 20;
     const usableWidth = svgWidth - padding * 2 - pointMargin * 2;
     const usableHeight = svgHeight - padding - bottomMargin;
     const step = points.length > 1 ? usableWidth / (points.length - 1) : usableWidth;
     const pointCoordinates = points.map((p, i) => {
         const x = padding + pointMargin + step * i;
-        const y = padding + usableHeight - (p.pct / 100) * usableHeight;
+        const y = padding + usableHeight - ((p.pct + 200) / 400) * usableHeight;
         return { ...p, x, y };
     });
     const svgPoints = pointCoordinates.map(p => `${p.x},${p.y}`).join(' ');
 
-    const optimalBand = { from: 75, to: 100, fill: 'rgba(126, 187, 72, 0.32)' };
-    const greenBand = `<rect x="${padding}" y="${padding + usableHeight - (optimalBand.to / 100) * usableHeight}" width="${usableWidth + pointMargin * 2}" height="${Math.max(0, (optimalBand.to - optimalBand.from) / 100 * usableHeight)}" fill="${optimalBand.fill}" rx="18" />`;
+    const optimalBand = { from: 60, to: 200, fill: 'rgba(0, 173, 118, 0.18)' };
+
+    const greenBand = `
+        <rect 
+            x="${padding}" 
+            y="${padding + usableHeight - ((optimalBand.to + 200) / 400) * usableHeight}" 
+            width="${usableWidth + pointMargin * 2}" 
+            height="${((optimalBand.to - optimalBand.from) / 400) * usableHeight}" 
+            fill="${optimalBand.fill}" 
+            rx="18" 
+        />
+    `;
 
     const axisSegments = [
-        { from: 0, to: 25, color: '#F44336' },
-        { from: 25, to: 50, color: '#FF9800' },
-        { from: 50, to: 75, color: '#FFEB3B' },
-        { from: 75, to: 100, color: '#4CAF50' }
+        { from: -100, to: -30, color: '#F44336' },
+        { from: -30, to: 30, color: '#FF9800' },
+        { from: 30, to: 60, color: '#FFEB3B' },
+        { from: 60, to: 100, color: '#52c09d' },
+        { from: 100, to: 200, color: '#00ad76' }
     ];
 
     const axisLines = axisSegments.map(segment => {
-        const y1 = padding + usableHeight - (segment.to / 100) * usableHeight;
-        const y2 = padding + usableHeight - (segment.from / 100) * usableHeight;
+        const y1 = padding + usableHeight - ((segment.to + 200) / 400) * usableHeight;
+        const y2 = padding + usableHeight - ((segment.from + 200) / 400) * usableHeight;
         return `<line x1="${padding - 12}" y1="${y1}" x2="${padding - 12}" y2="${y2}" stroke="${segment.color}" stroke-width="10" stroke-linecap="round" />`;
     }).join('');
 
@@ -227,8 +265,8 @@ function renderOptimalGraph(datas, label, isSolo) {
     }).join('');
 
     const xLabels = pointCoordinates.map(p => {
-        const label = screeningCompartmentsMap[p.name] || p.name;
-        const labelY = padding + usableHeight + 30;     // cambiar este valor para ajustar la posición vertical de las etiquetas x
+        const label = p.name.replace(/-/g, ' ');
+        const labelY = padding + usableHeight -50;     // cambiar este valor para ajustar la posición vertical de las etiquetas x
 
         return `
             <text 
@@ -251,8 +289,8 @@ function renderOptimalGraph(datas, label, isSolo) {
                     </defs>
                     ${greenBand}
                     ${axisLines}
-                    ${[100, 75, 50, 25, 0].map(value => {
-                        const y = padding + usableHeight - (value / 100) * usableHeight;
+                    ${[200, 100, 60, 30, 0, -30, -100].map(value => {
+                        const y = padding + usableHeight - ((value + 200) / 400) * usableHeight;
                         return `
                             <line x1="${padding}" y1="${y}" x2="${svgWidth - padding}" y2="${y}" class="optimal-graph-grid-line" />
                             <text x="${padding - 28}" y="${y + 4}" class="optimal-graph-axis-label">${value}%</text>
@@ -292,11 +330,11 @@ function renderOptimalGraph(datas, label, isSolo) {
                         alert("No optimal combination found");
                         return;
                     }
-                    renderOptimalGraph(bestCombo.datas, bestCombo.label, true);
+                    renderOptimalGraphScreening(bestCombo.datas, bestCombo.label, true);
                     labelContainer.textContent = `Optimal Combination: ${bestCombo.label}`;
                 } else {
                     // Modo NORMAL: solo el compuesto original
-                    renderOptimalGraph(compounds[compoundKey].datas, compoundKey, true);
+                    renderOptimalGraphScreening(compounds[compoundKey].datas, compoundKey, true);
                     labelContainer.textContent = `Compound: ${compounds[compoundKey].label}`;
                 }
 
